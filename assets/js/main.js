@@ -124,7 +124,7 @@ function revealWorkSection() {
 
   if (top < triggerBottom) {
     workSection.classList.add("visible");
-    window.removeEventListener("scroll", revealWorkSection); // only once
+    window.removeEventListener("scroll", revealWorkSection);
   }
 }
 
@@ -179,7 +179,7 @@ function revealHighlights() {
 
   if (top < triggerBottom) {
     highlightsSection.classList.add("visible");
-    window.removeEventListener("scroll", revealHighlights); // only run once
+    window.removeEventListener("scroll", revealHighlights);
   }
 }
 
@@ -195,7 +195,7 @@ function revealTeam() {
 
   if (top < triggerBottom) {
     teamSection.classList.add("visible");
-    window.removeEventListener("scroll", revealTeam); // run once
+    window.removeEventListener("scroll", revealTeam);
   }
 }
 
@@ -211,7 +211,7 @@ function revealContact() {
 
   if (top < triggerBottom) {
     contactSection.classList.add("visible");
-    window.removeEventListener("scroll", revealContact); // run once
+    window.removeEventListener("scroll", revealContact);
   }
 }
 
