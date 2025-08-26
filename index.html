@@ -12,38 +12,66 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <!-- Loader -->
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.html">
           <img src="assets/img/ff-logo.png" alt="Field Focus" height="40" />
         </a>
         <button
-          class="navbar-toggler text-white"
+          class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
+
         <div
           class="collapse navbar-collapse justify-content-end"
           id="navbarNav"
         >
           <ul class="navbar-nav me-4">
             <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
+              <a class="nav-link" href="#graphics">Graphics</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#services">Services</a>
+              <a class="nav-link" href="#videos">Videos</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
-            <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="otherDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Other
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="otherDropdown">
+                <li><a class="dropdown-item" href="#work">Work</a></li>
+                <li><a class="dropdown-item" href="#team">Team</a></li>
+                <li><a class="dropdown-item" href="#contact">Contact</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -65,7 +93,8 @@
       <!-- Hero content -->
       <div class="container hero-content">
         <h1 class="display-4 fw-bold">
-          You bring the passion,<br />we bring the focus
+          You bring the <span class="textItallic">passion</span>,<br />we bring
+          the <span class="textItallic">focus</span>
         </h1>
         <p class="lead mt-3">
           Social media agency helping clubs & athletes tell their story
@@ -95,20 +124,20 @@
       <div class="hero-overlay"></div>
     </header>
 
-    <!-- Full-Width Featured Design -->
-    <section class="featured-fullwidth">
-      <img src="assets/img/showcase-1.png" alt="Featured Design" />
-    </section>
-
     <!-- About -->
-    <section id="about" class="py-5">
-      <div class="container text-center">
-        <h2 class="fw-bold mb-4">About Us</h2>
-        <p class="lead">
-          Field Focus is a creative social media agency specialized in bringing
-          sports stories to life through matchday coverage, highlights, and
-          scouting features.
+    <section id="about" class="py-5 position-relative text-center text-white">
+      <div class="about-bg"></div>
+      <div class="container position-relative">
+        <h2 class="fw-bold mb-4 animate">About Us</h2>
+        <p class="lead mb-4 animate">
+          Field Focus is a <span class="text-silver">creative</span> social
+          media agency <span class="text-silver">specialized</span> in bringing
+          <span class="text-silver">sports stories</span> to life through
+          matchday coverage, highlights, and scouting features.
         </p>
+        <blockquote class="fs-4 fst-italic mb-4 text-silver animate">
+          “We bring the passion to the field, and the focus to your story.”
+        </blockquote>
       </div>
     </section>
 
@@ -119,7 +148,7 @@
         <div class="row g-4">
           <div class="col-md-4">
             <div class="card p-4">
-              <i class="bi bi-calendar-event display-4 text-primary mb-3"></i>
+              <i class="bi bi-calendar-event display-4 mb-3"></i>
               <h5 class="fw-bold">Matchday Coverage</h5>
               <p>
                 Live graphics, instant updates, and engaging visuals during
@@ -129,7 +158,7 @@
           </div>
           <div class="col-md-4">
             <div class="card p-4">
-              <i class="bi bi-camera-reels display-4 text-primary mb-3"></i>
+              <i class="bi bi-camera-reels display-4 mb-3"></i>
               <h5 class="fw-bold">Highlight Reels</h5>
               <p>
                 Professional edits that capture the emotion and excitement of
@@ -139,7 +168,7 @@
           </div>
           <div class="col-md-4">
             <div class="card p-4">
-              <i class="bi bi-binoculars display-4 text-primary mb-3"></i>
+              <i class="bi bi-binoculars display-4 mb-3"></i>
               <h5 class="fw-bold">Scouting Features</h5>
               <p>
                 Detailed player profiles and showcase packages for future stars.
@@ -168,108 +197,127 @@
     </section> -->
 
     <!-- Work Showcase -->
-    <section id="work" class="py-5">
-      <div class="container text-center">
-        <h2 class="fw-bold mb-5">Our Work</h2>
-        <div id="workCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
-                src="assets/img/showcase-1.png"
-                class="d-block w-100 rounded"
-                alt=""
-              />
+    <section
+      id="work"
+      class="py-5"
+      style="background-color: #121212; color: #fff"
+    >
+      <div class="container">
+        <h2 class="fw-bold mb-5 text-center">Our Work</h2>
+
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="assets/img/showcase-1.jpg" alt="Work 1" />
             </div>
-            <div class="carousel-item">
-              <img
-                src="assets/img/showcase-2.jpg"
-                class="d-block w-100 rounded"
-                alt=""
-              />
+            <div class="swiper-slide">
+              <img src="assets/img/showcase-2.jpg" alt="Work 2" />
             </div>
-            <div class="carousel-item">
-              <img
-                src="assets/img/showcase-3.jpg"
-                class="d-block w-100 rounded"
-                alt=""
-              />
+            <div class="swiper-slide">
+              <img src="assets/img/showcase-3.jpg" alt="Work 3" />
             </div>
+            <div class="swiper-slide">
+              <img src="assets/img/showcase-4.jpg" alt="Work 4" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/img/showcase-5.jpg" alt="Work 5" />
+            </div>
+            <!-- Add more slides as needed -->
           </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#workCarousel"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#workCarousel"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon"></span>
-          </button>
+
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
       </div>
     </section>
 
-    <!-- Video Section -->
-    <section class="py-5 position-relative">
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        class="w-100"
-        style="height: 500px; object-fit: cover; filter: brightness(0.4)"
-      ></video>
-      <div
-        class="position-absolute top-50 start-50 translate-middle text-center text-white"
-      >
-        <h2 class="fw-bold display-5">Highlight Every Moment</h2>
-        <p class="lead">
+    <!-- Highlights Section -->
+    <section
+      id="highlights"
+      class="py-5 position-relative"
+      style="background-color: #121212; color: #fff; overflow: hidden"
+    >
+      <!-- Diagonal line pattern overlay -->
+      <div class="pattern-overlay"></div>
+
+      <div class="container text-center position-relative" style="z-index: 1">
+        <h2 class="fw-bold mb-4">Highlight Every Moment</h2>
+        <p class="lead mb-5">
           We transform raw footage into stories that inspire fans worldwide.
         </p>
+
+        <!-- Video Embed -->
+        <div
+          class="video-wrapper position-relative"
+          style="
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+          "
+        >
+          <iframe
+            width="100%"
+            height="500"
+            src="https://www.youtube.com/embed/O-yogAMpySU?rel=0&modestbranding=1"
+            title="Highlight Video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
       </div>
     </section>
 
-    <!-- Team -->
+    <!-- Team Section -->
     <section id="team" class="py-5">
       <div class="container text-center">
         <h2 class="fw-bold mb-5">Meet the Team</h2>
         <div class="row g-4">
+          <!-- Team Member 1 -->
           <div class="col-md-6">
             <div class="card p-4">
               <img
                 src="assets/img/team1.jpg"
                 class="rounded-circle mb-3"
                 width="120"
-                alt="Team Member"
+                alt="John Doe"
               />
-              <h5 class="fw-bold">John Doe</h5>
-              <p class="text-muted">Co-Founder & Creative Director</p>
+              <h5 class="fw-bold">Dušan Živković</h5>
+              <p class="text-muted">Co-Founder</p>
               <p>
                 Leading the creative vision and ensuring every project meets the
                 highest standards.
               </p>
+              <!-- Social icons -->
+              <div class="team-socials mt-3">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
             </div>
           </div>
+
+          <!-- Team Member 2 -->
           <div class="col-md-6">
             <div class="card p-4">
               <img
                 src="assets/img/team2.jpg"
                 class="rounded-circle mb-3"
                 width="120"
-                alt="Team Member"
+                alt="Jane Smith"
               />
-              <h5 class="fw-bold">Jane Smith</h5>
-              <p class="text-muted">Co-Founder & Media Strategist</p>
+              <h5 class="fw-bold">Mihailo Milčić</h5>
+              <p class="text-muted">Co-Founder</p>
               <p>
                 Developing innovative campaigns that engage and grow online
                 communities.
               </p>
+              <!-- Social icons -->
+              <div class="team-socials mt-3">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
             </div>
           </div>
         </div>
@@ -280,33 +328,45 @@
     <section id="contact" class="py-5">
       <div class="container text-center">
         <h2 class="fw-bold mb-4">Contact Us</h2>
-        <form class="mx-auto" style="max-width: 600px">
-          <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Your Name"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Your Email"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <textarea
-              class="form-control"
-              rows="5"
-              placeholder="Your Message"
-              required
-            ></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
+
+        <p class="lead mb-4">
+          Reach out via email or follow us on social media:
+        </p>
+
+        <!-- Email -->
+        <p class="mb-3">
+          <a
+            href="mailto:info@fieldfocus.com"
+            class="text-white text-decoration-none"
+          >
+            info@fieldfocus.com
+          </a>
+        </p>
+
+        <!-- Socials -->
+        <div class="d-flex justify-content-center gap-4">
+          <a
+            href="https://www.instagram.com/fieldfocusocial/"
+            target="_blank"
+            class="text-white fs-4"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            href="https://www.youtube.com/@fieldfocusocial"
+            target="_blank"
+            class="text-white fs-4"
+          >
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a
+            href="https://www.behance.net/fieldfocus"
+            target="_blank"
+            class="text-white fs-4"
+          >
+            <i class="fab fa-behance"></i>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -316,9 +376,8 @@
         <p class="mb-1">&copy; 2025 Field Focus Agency. All Rights Reserved.</p>
         <div class="d-flex justify-content-center gap-3">
           <a href="#about" class="text-white">About</a>
-          <a href="#services" class="text-white">Services</a>
-          <a href="#work" class="text-white">Work</a>
-          <a href="#contact" class="text-white">Contact</a>
+          <a href="#graphics" class="text-white">Graphics</a>
+          <a href="#videos" class="text-white">Videos</a>
         </div>
       </div>
     </footer>
@@ -329,6 +388,8 @@
       src="https://kit.fontawesome.com/4cb2a0ed9c.js"
       crossorigin="anonymous"
     ></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>

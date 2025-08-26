@@ -14,38 +14,206 @@ document.querySelectorAll("a.nav-link").forEach((link) => {
   });
 });
 
-// Contact form placeholder (expand with backend/EmailJS later)
-document.querySelector("form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  alert("Message sent! (connect backend or EmailJS here)");
-});
-
-//Marquee seemles loop
-const marquee = document.getElementById("heroMarquee");
-const speed = 0.5; // pixels per frame
-
-// Convert HTMLCollection to array and clone images
-const images = Array.from(marquee.children);
-images.forEach((img) => {
-  const clone = img.cloneNode(true);
-  marquee.appendChild(clone); // append clone to end
-});
-
-let offset = 0;
-
-function animateMarquee() {
-  offset -= speed;
-
-  // When the first image is fully out of view, move it to the end
-  const firstImg = marquee.children[0];
-  if (Math.abs(offset) >= firstImg.offsetWidth + 64) {
-    // 64 = gap in px
-    offset += firstImg.offsetWidth + 64; // reset offset
-    marquee.appendChild(firstImg); // move first image to the end
-  }
-
-  marquee.style.transform = `translateX(${offset}px) translateY(-50%)`;
-  requestAnimationFrame(animateMarquee);
+// Contact form
+const contactForm = document.querySelector("form");
+if (contactForm) {
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Message sent! (connect backend or EmailJS here)");
+  });
 }
 
-animateMarquee();
+// Marquee animation
+const marquee = document.getElementById("heroMarquee");
+if (marquee) {
+  const speed = 0.5;
+  const images = Array.from(marquee.children);
+
+  images.forEach((img) => {
+    const clone = img.cloneNode(true);
+    marquee.appendChild(clone);
+  });
+
+  let offset = 0;
+
+  function animateMarquee() {
+    offset -= speed;
+    const firstImg = marquee.children[0];
+    if (Math.abs(offset) >= firstImg.offsetWidth + 64) {
+      offset += firstImg.offsetWidth + 64;
+      marquee.appendChild(firstImg);
+    }
+    marquee.style.transform = `translateX(${offset}px) translateY(-50%)`;
+    requestAnimationFrame(animateMarquee);
+  }
+
+  animateMarquee();
+}
+
+// Navbar toggler animation
+const toggler = document.querySelector(".navbar-toggler");
+if (toggler) {
+  toggler.addEventListener("click", function () {
+    this.classList.toggle("open");
+  });
+}
+
+// Loader
+window.addEventListener("load", function () {
+  const loader = document.getElementById("loader");
+  if (!loader) return;
+  loader.style.transition = "opacity 1s ease";
+  loader.style.opacity = "0";
+  setTimeout(() => {
+    if (loader.parentNode) loader.parentNode.removeChild(loader);
+  }, 1000);
+});
+
+// Safety timeout in case load hangs
+setTimeout(() => {
+  const loader = document.getElementById("loader");
+  if (loader) {
+    loader.style.transition = "opacity 0.5s ease";
+    loader.style.opacity = "0";
+    setTimeout(() => {
+      if (loader.parentNode) loader.parentNode.removeChild(loader);
+    }, 500);
+  }
+}, 5000);
+
+// About section scroll reveal
+const aboutElements = document.querySelectorAll(
+  "#about h2, #about .lead, #about blockquote"
+);
+
+function revealAboutElements() {
+  const triggerBottom = window.innerHeight * 0.85;
+  aboutElements.forEach((el) => {
+    const elTop = el.getBoundingClientRect().top;
+    if (elTop < triggerBottom) {
+      el.classList.add("reveal");
+    }
+  });
+}
+
+// Parallax effect for about section
+const aboutBg = document.querySelector(".about-bg");
+function parallaxAbout() {
+  if (aboutBg) {
+    const scrollY = window.scrollY;
+    aboutBg.style.transform = `translateY(${scrollY * 0.2}px)`;
+  }
+}
+
+// Scroll listener
+window.addEventListener("scroll", () => {
+  revealAboutElements();
+  parallaxAbout();
+});
+window.addEventListener("load", () => {
+  revealAboutElements();
+  parallaxAbout();
+});
+
+// Scroll-trigger fade-in for Work section
+const workSection = document.getElementById("work");
+
+function revealWorkSection() {
+  const triggerBottom = window.innerHeight * 0.85;
+  const top = workSection.getBoundingClientRect().top;
+
+  if (top < triggerBottom) {
+    workSection.classList.add("visible");
+    window.removeEventListener("scroll", revealWorkSection); // only once
+  }
+}
+
+window.addEventListener("scroll", revealWorkSection);
+window.addEventListener("load", revealWorkSection);
+
+// Swiper initialization
+const swiper = new Swiper(".mySwiper", {
+  slidesPerView: "auto",
+  centeredSlides: true,
+  spaceBetween: 30,
+  loop: false,
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  effect: "coverflow",
+  coverflowEffect: {
+    rotate: 15,
+    stretch: 0,
+    depth: 100,
+    modifier: 1,
+    slideShadows: true,
+  },
+});
+
+// Service animation
+const serviceElements = document.querySelectorAll(
+  "#services h2, #services .card"
+);
+
+function revealServices() {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  serviceElements.forEach((el) => {
+    const elTop = el.getBoundingClientRect().top;
+    if (elTop < triggerBottom) {
+      el.classList.add("reveal");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealServices);
+window.addEventListener("load", revealServices);
+
+// Scroll-triggered animation for Highlights section
+const highlightsSection = document.getElementById("highlights");
+
+function revealHighlights() {
+  const triggerBottom = window.innerHeight * 0.85;
+  const top = highlightsSection.getBoundingClientRect().top;
+
+  if (top < triggerBottom) {
+    highlightsSection.classList.add("visible");
+    window.removeEventListener("scroll", revealHighlights); // only run once
+  }
+}
+
+window.addEventListener("scroll", revealHighlights);
+window.addEventListener("load", revealHighlights);
+
+// Scroll-triggered animation for Team section
+const teamSection = document.getElementById("team");
+
+function revealTeam() {
+  const triggerBottom = window.innerHeight * 0.85;
+  const top = teamSection.getBoundingClientRect().top;
+
+  if (top < triggerBottom) {
+    teamSection.classList.add("visible");
+    window.removeEventListener("scroll", revealTeam); // run once
+  }
+}
+
+window.addEventListener("scroll", revealTeam);
+window.addEventListener("load", revealTeam);
+
+// Scroll-triggered animation for Contact section
+const contactSection = document.getElementById("contact");
+
+function revealContact() {
+  const triggerBottom = window.innerHeight * 0.85;
+  const top = contactSection.getBoundingClientRect().top;
+
+  if (top < triggerBottom) {
+    contactSection.classList.add("visible");
+    window.removeEventListener("scroll", revealContact); // run once
+  }
+}
+
+window.addEventListener("scroll", revealContact);
+window.addEventListener("load", revealContact);
