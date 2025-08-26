@@ -202,18 +202,32 @@ function revealTeam() {
 window.addEventListener("scroll", revealTeam);
 window.addEventListener("load", revealTeam);
 
-// Scroll-triggered animation for Contact section
-const contactSection = document.getElementById("contact");
+// Animate elements in each section separately
+const sectionsToAnimate = document.querySelectorAll(
+  "#about, #services, #work, #highlights, #team, #contact"
+);
 
-function revealContact() {
+function revealSectionElements() {
   const triggerBottom = window.innerHeight * 0.85;
-  const top = contactSection.getBoundingClientRect().top;
 
-  if (top < triggerBottom) {
-    contactSection.classList.add("visible");
-    window.removeEventListener("scroll", revealContact);
-  }
+  sectionsToAnimate.forEach((section) => {
+    const elTop = section.getBoundingClientRect().top;
+    if (elTop < triggerBottom) {
+      // Only animate if not already visible
+      if (!section.classList.contains("animated")) {
+        const children = section.querySelectorAll(
+          "h2, .lead, .card, p, a, iframe, img, .d-flex a"
+        );
+        children.forEach((el, index) => {
+          setTimeout(() => {
+            el.classList.add("visible");
+          }, index * 100); // stagger within the section only
+        });
+        section.classList.add("animated");
+      }
+    }
+  });
 }
 
-window.addEventListener("scroll", revealContact);
-window.addEventListener("load", revealContact);
+window.addEventListener("scroll", revealSectionElements);
+window.addEventListener("load", revealSectionElements);
