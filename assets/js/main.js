@@ -1,4 +1,4 @@
-// Smooth scroll
+// ======================= Smooth Scroll =======================
 function smoothScrollTo(targetY, duration = 600) {
   const startY = window.scrollY;
   const diff = targetY - startY;
@@ -9,12 +9,9 @@ function smoothScrollTo(targetY, duration = 600) {
     const time = timestamp - startTime;
     const percent = Math.min(time / duration, 1);
     window.scrollTo(0, startY + diff * easeInOutQuad(percent));
-    if (time < duration) {
-      requestAnimationFrame(step);
-    }
+    if (time < duration) requestAnimationFrame(step);
   }
 
-  // Ease function
   function easeInOutQuad(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
   }
@@ -22,21 +19,17 @@ function smoothScrollTo(targetY, duration = 600) {
   requestAnimationFrame(step);
 }
 
-// Smooth scroll for footer links
+// Footer smooth scroll
 document.querySelectorAll("footer a[href^='#']").forEach((link) => {
   link.addEventListener("click", function (e) {
     e.preventDefault();
-    const targetId = this.getAttribute("href");
-    const target = document.querySelector(targetId);
-
-    if (target) {
-      const y = target.getBoundingClientRect().top + window.pageYOffset - 60; // adjust offset for navbar
-      smoothScrollTo(y);
-    }
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target)
+      smoothScrollTo(target.getBoundingClientRect().top + window.scrollY - 60);
   });
 });
 
-// Back to Top button smooth scroll
+// Back-to-top button
 const backToTop = document.getElementById("backToTop");
 if (backToTop) {
   backToTop.addEventListener("click", (e) => {
@@ -45,29 +38,54 @@ if (backToTop) {
   });
 }
 
-const backToTopBtn = document.getElementById("backToTop");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 300) {
-    // show after scrolling 300px
-    backToTopBtn.classList.add("show");
-  } else {
-    backToTopBtn.classList.remove("show");
-  }
+// ======================= Loader =======================
+function hideLoader(loader, delay = 1000) {
+  loader.style.transition = `opacity ${delay / 1000}s ease`;
+  loader.style.opacity = "0";
+  setTimeout(() => loader.parentNode?.removeChild(loader), delay);
+}
+
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  if (loader) hideLoader(loader, 1000);
 });
 
-// Marquee animation
+setTimeout(() => {
+  const loader = document.getElementById("loader");
+  if (loader) hideLoader(loader, 500);
+}, 5000);
+
+// ======================= Navbar =======================
+const toggler = document.querySelector(".navbar-toggler");
+const navbarCollapse = document.querySelector(".navbar-collapse");
+
+if (toggler)
+  toggler.addEventListener("click", () => toggler.classList.toggle("open"));
+
+if (navbarCollapse) {
+  navbarCollapse.addEventListener("show.bs.collapse", (e) => {
+    e.target.style.height = "0";
+    requestAnimationFrame(
+      () => (e.target.style.height = e.target.scrollHeight + "px")
+    );
+  });
+  navbarCollapse.addEventListener("hide.bs.collapse", (e) => {
+    e.target.style.height = e.target.scrollHeight + "px";
+    requestAnimationFrame(() => (e.target.style.height = "0"));
+  });
+  navbarCollapse.addEventListener("hidden.bs.collapse", () =>
+    toggler?.classList.remove("open")
+  );
+}
+
+// ======================= Hero Marquee =======================
 const marquee = document.getElementById("heroMarquee");
 if (marquee) {
   const speed = 0.5;
   const images = Array.from(marquee.children);
-
-  images.forEach((img) => {
-    const clone = img.cloneNode(true);
-    marquee.appendChild(clone);
-  });
+  images.forEach((img) => marquee.appendChild(img.cloneNode(true)));
 
   let offset = 0;
-
   function animateMarquee() {
     offset -= speed;
     const firstImg = marquee.children[0];
@@ -78,92 +96,16 @@ if (marquee) {
     marquee.style.transform = `translateX(${offset}px) translateY(-50%)`;
     requestAnimationFrame(animateMarquee);
   }
-
   animateMarquee();
 }
 
-// Navbar toggler animation
-const toggler = document.querySelector(".navbar-toggler");
-if (toggler) {
-  toggler.addEventListener("click", function () {
-    this.classList.toggle("open");
-  });
-}
-// Animate mobile navbar collapse height
-document.querySelectorAll(".navbar-collapse").forEach((collapse) => {
-  collapse.addEventListener("show.bs.collapse", (e) => {
-    const el = e.target;
-    el.style.height = "0";
-    setTimeout(() => {
-      el.style.height = el.scrollHeight + "px";
-    });
-  });
-
-  collapse.addEventListener("hide.bs.collapse", (e) => {
-    const el = e.target;
-    el.style.height = el.scrollHeight + "px";
-    setTimeout(() => {
-      el.style.height = "0";
-    });
-  });
-});
-
-// Ensure navbar toggler resets when navbar collapses
-const navbarCollapse = document.querySelector(".navbar-collapse");
-const navbarToggler = document.querySelector(".navbar-toggler");
-
-if (navbarCollapse && navbarToggler) {
-  navbarCollapse.addEventListener("hidden.bs.collapse", () => {
-    navbarToggler.classList.remove("open");
-  });
-}
-
-// Loader
-window.addEventListener("load", function () {
-  const loader = document.getElementById("loader");
-  if (!loader) return;
-  loader.style.transition = "opacity 1s ease";
-  loader.style.opacity = "0";
-  setTimeout(() => {
-    if (loader.parentNode) loader.parentNode.removeChild(loader);
-  }, 1000);
-});
-
-// Safety timeout in case load hangs
-setTimeout(() => {
-  const loader = document.getElementById("loader");
-  if (loader) {
-    loader.style.transition = "opacity 0.5s ease";
-    loader.style.opacity = "0";
-    setTimeout(() => {
-      if (loader.parentNode) loader.parentNode.removeChild(loader);
-    }, 500);
-  }
-}, 5000);
-
-// About section scroll reveal
-const aboutElements = document.querySelectorAll(
-  "#about h2, #about .lead, #about blockquote"
-);
-
-function revealAboutElements() {
-  const triggerBottom = window.innerHeight * 0.85;
-  aboutElements.forEach((el) => {
-    const elTop = el.getBoundingClientRect().top;
-    if (elTop < triggerBottom) {
-      el.classList.add("reveal");
-    }
-  });
-}
-
-// About extra
+// ======================= Read More About =======================
 const readMoreBtn = document.getElementById("readMoreBtn");
 const aboutExtra = document.getElementById("aboutExtra");
-
 if (readMoreBtn && aboutExtra) {
   readMoreBtn.addEventListener("click", () => {
     if (aboutExtra.classList.contains("show")) {
-      aboutExtra.style.height = aboutExtra.scrollHeight + "px"; // start from current
+      aboutExtra.style.height = aboutExtra.scrollHeight + "px";
       requestAnimationFrame(() => {
         aboutExtra.style.height = "0";
         aboutExtra.style.opacity = "0";
@@ -179,53 +121,16 @@ if (readMoreBtn && aboutExtra) {
         aboutExtra.style.opacity = "1";
       });
       readMoreBtn.textContent = "Read Less";
-
       aboutExtra.addEventListener("transitionend", function handler() {
-        if (aboutExtra.classList.contains("show")) {
+        if (aboutExtra.classList.contains("show"))
           aboutExtra.style.height = "auto";
-        }
         aboutExtra.removeEventListener("transitionend", handler);
       });
     }
   });
 }
 
-// Parallax effect for about section
-const aboutBg = document.querySelector(".about-bg");
-function parallaxAbout() {
-  if (aboutBg) {
-    const scrollY = window.scrollY;
-    aboutBg.style.transform = `translateY(${scrollY * 0.2}px)`;
-  }
-}
-
-// Scroll listener
-window.addEventListener("scroll", () => {
-  revealAboutElements();
-  parallaxAbout();
-});
-window.addEventListener("load", () => {
-  revealAboutElements();
-  parallaxAbout();
-});
-
-// Scroll-trigger fade-in for Work section
-const workSection = document.getElementById("work");
-
-function revealWorkSection() {
-  const triggerBottom = window.innerHeight * 0.85;
-  const top = workSection.getBoundingClientRect().top;
-
-  if (top < triggerBottom) {
-    workSection.classList.add("visible");
-    window.removeEventListener("scroll", revealWorkSection);
-  }
-}
-
-window.addEventListener("scroll", revealWorkSection);
-window.addEventListener("load", revealWorkSection);
-
-// Swiper initialization
+// ======================= Swiper =======================
 const swiper = new Swiper(".mySwiper", {
   slidesPerView: "auto",
   centeredSlides: true,
@@ -245,104 +150,105 @@ const swiper = new Swiper(".mySwiper", {
   },
 });
 
-// Handle "See More" button visibility
 const seeMoreBtn = document.getElementById("seeMoreBtn");
-
 if (seeMoreBtn) {
   swiper.on("slideChange", () => {
-    if (swiper.isEnd) {
-      seeMoreBtn.classList.remove("d-none");
-      seeMoreBtn.classList.add("fade-in");
-    } else {
-      seeMoreBtn.classList.add("d-none");
-    }
+    if (swiper.isEnd) seeMoreBtn.classList.replace("d-none", "fade-in");
+    else seeMoreBtn.classList.add("d-none");
   });
 }
 
-// Service animation
-const serviceElements = document.querySelectorAll(
-  "#services h2, #services .card"
-);
+// ======================= Scroll-triggered Animations =======================
+const scrollElements = {
+  about: document.querySelectorAll(
+    "#about h2, #about .lead, #about blockquote"
+  ),
+  services: document.querySelectorAll("#services h2, #services .card"),
+  work: document.getElementById("work"),
+  highlights: document.getElementById("highlights"),
+  team: document.getElementById("team"),
+  sectionsToAnimate: document.querySelectorAll("#work, #team, #contact"),
+  parallax: document.querySelector(".about-bg"),
+};
 
-function revealServices() {
+function handleScroll() {
   const triggerBottom = window.innerHeight * 0.85;
 
-  serviceElements.forEach((el) => {
-    const elTop = el.getBoundingClientRect().top;
-    if (elTop < triggerBottom) {
-      el.classList.add("reveal");
-    }
-  });
-}
-
-window.addEventListener("scroll", revealServices);
-window.addEventListener("load", revealServices);
-
-// Scroll-triggered animation for Highlights section
-const highlightsSection = document.getElementById("highlights");
-
-function revealHighlights() {
-  const triggerBottom = window.innerHeight * 0.85;
-  const top = highlightsSection.getBoundingClientRect().top;
-
-  if (top < triggerBottom) {
-    highlightsSection.classList.add("visible");
-    window.removeEventListener("scroll", revealHighlights);
+  // Helper to reveal NodeList
+  function revealElements(elements) {
+    elements.forEach((el) => {
+      if (!el) return;
+      const elTop = el.getBoundingClientRect().top;
+      if (elTop < triggerBottom) el.classList.add("reveal");
+    });
   }
-}
 
-window.addEventListener("scroll", revealHighlights);
-window.addEventListener("load", revealHighlights);
+  // About
+  revealElements(scrollElements.about);
 
-// Scroll-triggered animation for Team section
-const teamSection = document.getElementById("team");
+  // Services
+  revealElements(scrollElements.services);
 
-function revealTeam() {
-  const triggerBottom = window.innerHeight * 0.85;
-  const top = teamSection.getBoundingClientRect().top;
-
-  if (top < triggerBottom) {
-    teamSection.classList.add("visible");
-    window.removeEventListener("scroll", revealTeam);
+  // Work
+  if (scrollElements.work) {
+    if (scrollElements.work.getBoundingClientRect().top < triggerBottom)
+      scrollElements.work.classList.add("visible");
   }
-}
 
-window.addEventListener("scroll", revealTeam);
-window.addEventListener("load", revealTeam);
+  // Highlights
+  if (scrollElements.highlights) {
+    if (scrollElements.highlights.getBoundingClientRect().top < triggerBottom)
+      scrollElements.highlights.classList.add("visible");
+  }
 
-// Animate elements in each section separately
-const sectionsToAnimate = document.querySelectorAll("#work, #team, #contact");
+  // Team
+  if (scrollElements.team) {
+    if (scrollElements.team.getBoundingClientRect().top < triggerBottom)
+      scrollElements.team.classList.add("visible");
+  }
 
-function revealSectionElements() {
-  const triggerBottom = window.innerHeight * 0.85;
-
-  sectionsToAnimate.forEach((section) => {
-    const elTop = section.getBoundingClientRect().top;
-    if (elTop < triggerBottom) {
-      // Only animate if not already visible
-      if (!section.classList.contains("animated")) {
-        const children = section.querySelectorAll(
-          "h2, .lead, .card, p, a, iframe, img, .d-flex a"
-        );
-        children.forEach((el, index) => {
-          setTimeout(() => {
-            el.classList.add("visible");
-          }, index * 100);
-        });
-        section.classList.add("animated");
-      }
+  // Sections animate children
+  scrollElements.sectionsToAnimate.forEach((section) => {
+    if (
+      section.getBoundingClientRect().top < triggerBottom &&
+      !section.classList.contains("animated")
+    ) {
+      const children = section.querySelectorAll(
+        "h2, .lead, .card, p, a, iframe, img, .d-flex a"
+      );
+      children.forEach((el, index) =>
+        setTimeout(() => el.classList.add("visible"), index * 100)
+      );
+      section.classList.add("animated");
     }
   });
+
+  // Back-to-top button
+  if (backToTop) backToTop.classList.toggle("show", window.scrollY > 300);
+
+  // Parallax
+  if (scrollElements.parallax)
+    scrollElements.parallax.style.transform = `translateY(${
+      window.scrollY * 0.2
+    }px)`;
 }
 
-window.addEventListener("scroll", revealSectionElements);
-window.addEventListener("load", revealSectionElements);
+// Throttle scroll for performance
+let ticking = false;
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      handleScroll();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+window.addEventListener("load", handleScroll);
 
-// Smooth scroll for Work, Team (in Other) and Contact
+// ======================= Smooth Scroll for Specific Links =======================
 document.addEventListener("DOMContentLoaded", () => {
   const OFFSET = 60;
-
-  // Target only the specific links
   const smoothLinks = document.querySelectorAll(
     '#otherDropdown + .dropdown-menu a[href="#work"], ' +
       '#otherDropdown + .dropdown-menu a[href="#team"], ' +
@@ -351,23 +257,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   smoothLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
-      const targetID = link.getAttribute("href");
-      const targetEl = document.querySelector(targetID);
+      const targetEl = document.querySelector(link.getAttribute("href"));
       if (!targetEl) return;
-
       e.preventDefault();
+      smoothScrollTo(
+        targetEl.getBoundingClientRect().top + window.scrollY - OFFSET
+      );
 
-      // Smooth scroll calculation
-      const targetY =
-        targetEl.getBoundingClientRect().top + window.scrollY - OFFSET;
-
-      smoothScrollTo(targetY);
-
-      // Close mobile navbar if open
-      const navbarCollapse = document.querySelector(".navbar-collapse");
-      if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+      if (navbarCollapse && navbarCollapse.classList.contains("show"))
         bootstrap.Collapse.getInstance(navbarCollapse).hide();
-      }
     });
   });
 });
