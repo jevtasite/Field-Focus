@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphics - Field Focus</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/graphics.css" />
+  </head>
+  <body>
+    <!-- Loader -->
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Navbar (same as main page) -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/ff-logo.png" alt="Field Focus" height="30" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav me-4">
+            <li class="nav-item">
+              <a class="nav-link active" href="graphics.html">Graphics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#videos">Videos</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="otherDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Other
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="otherDropdown">
+                <li><a class="dropdown-item" href="#work">Work</a></li>
+                <li><a class="dropdown-item" href="#team">Team</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header
+      class="hero d-flex flex-column align-items-center justify-content-center text-center graphics-hero"
+    >
+      <!-- Background Text -->
+      <div class="hero-bg-text">
+        <span class="featured-text">FEATURED</span>
+        <span class="graphics-text">GRAPHICS</span>
+      </div>
+
+      <!-- Featured Graphics Marquee -->
+      <div class="graphics-hero-marquee" id="graphicsHeroMarquee">
+        <div class="marquee-track">
+          <img src="assets/img/showcase-1.jpg" alt="Graphic 1" />
+          <img src="assets/img/showcase-2.jpg" alt="Graphic 2" />
+          <img src="assets/img/showcase-3.jpg" alt="Graphic 3" />
+          <img src="assets/img/showcase-4.jpg" alt="Graphic 4" />
+          <!-- duplicate for seamless scroll -->
+          <img src="assets/img/showcase-1.jpg" alt="Graphic 1" />
+          <img src="assets/img/showcase-2.jpg" alt="Graphic 2" />
+          <img src="assets/img/showcase-3.jpg" alt="Graphic 3" />
+          <img src="assets/img/showcase-4.jpg" alt="Graphic 4" />
+        </div>
+      </div>
+
+      <!-- Overlay -->
+      <div class="hero-overlay"></div>
+    </header>
+
+    <!-- Work Filters -->
+    <section id="graphicsFilters" class="py-4 text-center">
+      <div class="container">
+        <button
+          class="btn btn-outline-light me-2 filter-btn active"
+          data-category="all"
+        >
+          All
+        </button>
+        <button
+          class="btn btn-outline-light me-2 filter-btn"
+          data-category="logos"
+        >
+          Logos
+        </button>
+        <button
+          class="btn btn-outline-light me-2 filter-btn"
+          data-category="illustrations"
+        >
+          Illustrations
+        </button>
+        <button
+          class="btn btn-outline-light me-2 filter-btn"
+          data-category="social"
+        >
+          Social Media
+        </button>
+      </div>
+    </section>
+
+    <!-- Featured Work -->
+    <section id="work" class="py-5">
+      <div class="container">
+        <h2 class="fw-bold mb-4 text-center">Our Graphics</h2>
+        <div class="row g-4 work-grid justify-content-center">
+          <div class="col-md-4 work-card" data-category="logos">
+            <img src="assets/img/graphics-1.jpg" alt="Logo 1" />
+            <div class="overlay"><i class="fas fa-eye view-icon"></i></div>
+          </div>
+          <div class="col-md-4 work-card" data-category="illustrations">
+            <img src="assets/img/graphics-2.jpg" alt="Illustration 1" />
+            <div class="overlay"><i class="fas fa-eye view-icon"></i></div>
+          </div>
+          <div class="col-md-4 work-card" data-category="social">
+            <img src="assets/img/graphics-3.jpg" alt="Social Media 1" />
+            <div class="overlay"><i class="fas fa-eye view-icon"></i></div>
+          </div>
+          <div class="col-md-4 work-card" data-category="logos">
+            <img src="assets/img/graphics-4.jpg" alt="Logo 2" />
+            <div class="overlay"><i class="fas fa-eye view-icon"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Client Logos Marquee -->
+    <section class="marquee-section py-5">
+      <div class="marquee">
+        <div class="marquee-content">
+          <img src="assets/img/client1.png" alt="Client 1" />
+          <img src="assets/img/client2.png" alt="Client 2" />
+          <img src="assets/img/client3.png" alt="Client 3" />
+          <img src="assets/img/client4.png" alt="Client 4" />
+          <img src="assets/img/client5.png" alt="Client 5" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5">
+      <div class="container text-center">
+        <h2 class="fw-bold mb-5">What Clients Say</h2>
+        <div class="swiper mySwiperTestimonials">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide testimonial-card">
+              <p>"Amazing graphics! Took our brand to the next level."</p>
+              <h5>- Client A</h5>
+            </div>
+            <div class="swiper-slide testimonial-card">
+              <p>"Creative, professional, and fast turnaround."</p>
+              <h5>- Client B</h5>
+            </div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call To Action -->
+    <section id="cta" class="py-5 text-center">
+      <div class="container">
+        <h2 class="fw-bold">Want a Custom Design?</h2>
+        <p class="lead mb-4">Contact us to bring your ideas to life</p>
+        <a href="#contact" class="btn btn-white btn-lg">Get in Touch</a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-5">
+      <div class="container text-center">
+        <h2 class="fw-bold mb-4">Contact Us</h2>
+        <p class="lead mb-4">Reach out via email or social media</p>
+        <p class="mb-3">
+          <a
+            href="mailto:info@fieldfocus.com"
+            class="text-white text-decoration-none"
+            >info@fieldfocus.com</a
+          >
+        </p>
+        <div class="d-flex justify-content-center gap-4">
+          <a
+            href="https://www.instagram.com/fieldfocusocial/"
+            target="_blank"
+            class="text-white fs-4"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a
+            href="https://www.youtube.com/@fieldfocusocial"
+            target="_blank"
+            class="text-white fs-4"
+            ><i class="fab fa-youtube"></i
+          ></a>
+          <a
+            href="https://www.behance.net/fieldfocus"
+            target="_blank"
+            class="text-white fs-4"
+            ><i class="fab fa-behance"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer (same as main page) -->
+    <footer class="footer py-1 text-center">
+      <div class="container">
+        <p class="mb-1">&copy; 2025 Field Focus Agency. All Rights Reserved.</p>
+        <div class="d-flex justify-content-center gap-3 mb-2">
+          <a href="#about" class="footer-link">About</a>
+          <a href="graphics.html" class="footer-link">Graphics</a>
+          <a href="#videos" class="footer-link">Videos</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
+        <p class="dev-note">
+          Developed by
+          <a
+            href="https://jevtasite.github.io/JevtaWebsite/"
+            target="_blank"
+            class="dev-link shine-text"
+            >Jevta</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <a href="#" id="backToTop" class="back-to-top">&#8593;</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/4cb2a0ed9c.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/graphics.js"></script>
+  </body>
+</html>

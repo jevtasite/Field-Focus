@@ -1,81 +1,145 @@
-const gallery = document.querySelectorAll(".graphics-card img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.querySelector(".lightbox-img");
-const closeBtn = document.querySelector(".lightbox-close");
-const prevBtn = document.querySelector(".lightbox-prev");
-const nextBtn = document.querySelector(".lightbox-next");
+// ======================= Work Filters =======================
+const filterBtns = document.querySelectorAll(".filter-btn");
+const workItems = document.querySelectorAll(".work-card");
 
-let currentIndex = 0;
-let images = Array.from(gallery).map((img) => img.src);
+filterBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // Active button styling
+    filterBtns.forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
 
-function showLightbox(index) {
-  currentIndex = index;
-  lightboxImg.src = images[currentIndex];
-  lightbox.style.display = "flex";
-}
+    const category = btn.getAttribute("data-category");
 
-function closeLightbox() {
-  lightbox.style.display = "none";
-}
-
-function nextImage() {
-  currentIndex = (currentIndex + 1) % images.length;
-  lightboxImg.src = images[currentIndex];
-}
-
-function prevImage() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  lightboxImg.src = images[currentIndex];
-}
-
-gallery.forEach((img, index) => {
-  img.parentElement.addEventListener("click", () => showLightbox(index));
+    // Show/hide items based on category
+    workItems.forEach((item) => {
+      if (
+        category === "all" ||
+        item.getAttribute("data-category") === category
+      ) {
+        item.parentElement.style.display = "block";
+      } else {
+        item.parentElement.style.display = "none";
+      }
+    });
+  });
 });
 
-closeBtn.addEventListener("click", closeLightbox);
-nextBtn.addEventListener("click", nextImage);
-prevBtn.addEventListener("click", prevImage);
+// ======================= Lightbox Overlay =======================
+workItems.forEach((item) => {
+  const overlayIcon = item.querySelector(".view-icon");
+  if (!overlayIcon) return;
 
-// Close on outside click
-lightbox.addEventListener("click", (e) => {
-  if (e.target === lightbox) closeLightbox();
+  overlayIcon.addEventListener("click", () => {
+    const imgSrc = item.querySelector("img").getAttribute("src");
+    const overlay = document.createElement("div");
+    overlay.classList.add("work-overlay");
+    overlay.innerHTML = `
+      <div class="overlay-content">
+        <img src="${imgSrc}" alt="Preview" />
+        <span class="close-overlay">&times;</span>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // Close button
+    overlay.querySelector(".close-overlay").addEventListener("click", () => {
+      overlay.remove();
+    });
+
+    // Close on clicking outside
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) overlay.remove();
+    });
+  });
 });
 
-// Navigate with arrow keys
-document.addEventListener("keydown", (e) => {
-  if (lightbox.style.display === "flex") {
-    if (e.key === "ArrowRight") nextImage();
-    if (e.key === "ArrowLeft") prevImage();
-    if (e.key === "Escape") closeLightbox();
-  }
-});
-
-// ======================= Hero Marquee for Graphics Page =======================
-const marquee = document.getElementById("heroMarquee");
-if (marquee) {
-  const speed = 0.5; // scroll speed
-  const images = Array.from(marquee.children);
-
-  // duplicate images for continuous scroll
-  images.forEach((img) => marquee.appendChild(img.cloneNode(true)));
+// ======================= Client Logos Marquee =======================
+const clientMarquee = document.querySelector(".marquee .marquee-content");
+if (clientMarquee) {
+  const speed = 0.5;
+  const logos = Array.from(clientMarquee.children);
+  logos.forEach((logo) => clientMarquee.appendChild(logo.cloneNode(true)));
 
   let offset = 0;
-
-  function animateMarquee() {
+  function animateClientMarquee() {
     offset -= speed;
-    const firstImg = marquee.children[0];
-
-    // move first image to end when it scrolls out
-    if (Math.abs(offset) >= firstImg.offsetWidth + 64) {
-      offset += firstImg.offsetWidth + 64;
-      marquee.appendChild(firstImg);
+    const firstLogo = clientMarquee.children[0];
+    if (Math.abs(offset) >= firstLogo.offsetWidth) {
+      offset += firstLogo.offsetWidth;
+      clientMarquee.appendChild(firstLogo);
     }
-
-    // translate marquee
-    marquee.style.transform = `translateX(${offset}px) translateY(-50%)`;
-
-    requestAnimationFrame(animateMarquee);
+    clientMarquee.style.transform = `translateX(${offset}px)`;
+    requestAnimationFrame(animateClientMarquee);
   }
+  animateClientMarquee();
+}
 
-  animateMarquee();
+// ======================= Testimonials Swiper =======================
+const swiperTestimonials = new Swiper(".mySwiperTestimonials", {
+  slidesPerView: 1,
+  loop: true,
+  spaceBetween: 30,
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
+
+// ======================= Graphics Hero Marquee =======================
+const marqueeContainer = document.getElementById("graphicsHeroMarquee");
+if (marqueeContainer) {
+  const track = marqueeContainer.querySelector(".marquee-track");
+  const speed = 0.2; // slower speed
+  let offset = 0;
+  let paused = false;
+
+  // Clone images for seamless scroll
+  Array.from(track.children).forEach((img) =>
+    track.appendChild(img.cloneNode(true))
+  );
+
+  // Animate marquee
+  function animate() {
+    if (!paused) {
+      offset -= speed;
+      const firstImg = track.children[0];
+      const imgStyle = getComputedStyle(firstImg);
+      const totalWidth = firstImg.offsetWidth + parseInt(imgStyle.marginRight);
+      if (Math.abs(offset) >= totalWidth) {
+        offset += totalWidth;
+        track.appendChild(firstImg);
+      }
+      track.style.transform = `translateX(${offset}px)`;
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Pause on hover
+  marqueeContainer.addEventListener("mouseenter", () => (paused = true));
+  marqueeContainer.addEventListener("mouseleave", () => (paused = false));
+
+  // Lightbox functionality
+  track.querySelectorAll("img").forEach((img) => {
+    img.addEventListener("click", () => {
+      let lightbox = document.querySelector(".graphics-lightbox");
+      if (!lightbox) {
+        lightbox = document.createElement("div");
+        lightbox.classList.add("graphics-lightbox", "lightbox");
+        lightbox.innerHTML = `<span class="close">&times;</span><img src="${img.src}" alt="${img.alt}">`;
+        document.body.appendChild(lightbox);
+
+        // Show lightbox
+        lightbox.style.display = "flex";
+
+        // Close button
+        lightbox
+          .querySelector(".close")
+          .addEventListener("click", () => lightbox.remove());
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) lightbox.remove();
+        });
+      }
+    });
+  });
 }

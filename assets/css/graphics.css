@@ -1,0 +1,477 @@
+/* ======================= Reset & Body ======================= */
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  padding-top: 0;
+  margin: 0;
+}
+
+/* ======================= Graphics Hero ======================= */
+.graphics-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* center marquee vertically */
+  text-align: center;
+  height: 100vh;
+  background: linear-gradient(
+      180deg,
+      rgba(20, 20, 20, 0.9) 0%,
+      rgba(15, 15, 15, 0.95) 100%
+    ),
+    #1a1a1a;
+  overflow: hidden;
+  color: #fff;
+  padding-top: 3rem;
+}
+
+.graphics-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 25px
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.graphics-hero .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.5);
+  z-index: 3;
+}
+
+/* ======================= Background Text ======================= */
+.hero-bg-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.05);
+  line-height: 1;
+  letter-spacing: 5px;
+}
+
+/* Featured top-left */
+.hero-bg-text .featured-text {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  font-size: 12vw;
+  white-space: nowrap;
+}
+
+/* Graphics bottom-right */
+.hero-bg-text .graphics-text {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  font-size: 12vw;
+  white-space: nowrap;
+}
+
+/* ======================= Responsive font sizes ======================= */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .hero-bg-text .featured-text {
+    font-size: 16vw;
+    top: 6%;
+    left: 6%;
+  }
+  .hero-bg-text .graphics-text {
+    font-size: 14vw;
+    bottom: 6%;
+    right: 6%;
+  }
+}
+
+/* From 750px down → keep big, only tweak spacing */
+@media (max-width: 750px) {
+  .hero-bg-text .featured-text {
+    font-size: 15vw; /* stay bold & visible */
+    top: 6%;
+    left: 6%;
+  }
+  .hero-bg-text .graphics-text {
+    font-size: 14vw;
+    bottom: 6%;
+    right: 6%;
+  }
+}
+
+/* Small phones (up to 576px) */
+@media (max-width: 576px) {
+  .hero-bg-text .featured-text {
+    font-size: 16vw;
+    top: 7%;
+    left: 7%;
+  }
+  .hero-bg-text .graphics-text {
+    font-size: 15vw;
+    bottom: 7%;
+    right: 7%;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+  .hero-bg-text .featured-text {
+    font-size: 18vw;
+    top: 8%;
+    left: 8%;
+  }
+  .hero-bg-text .graphics-text {
+    font-size: 16vw;
+    bottom: 8%;
+    right: 8%;
+  }
+}
+
+/* ======================= Featured Graphics Marquee ======================= */
+.graphics-hero-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  z-index: 2;
+  cursor: grab;
+}
+
+.graphics-hero-marquee .marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.graphics-hero-marquee img {
+  height: 400px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-right: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.graphics-hero-marquee img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* ======================= Mobile Adjustments ======================= */
+/* Start scaling at 750px */
+@media (max-width: 750px) {
+  .hero-bg-text .featured-text {
+    font-size: 17vw;
+    top: 6%;
+    left: 6%;
+  }
+  .hero-bg-text .graphics-text {
+    font-size: 16vw;
+    bottom: 6%;
+    right: 6%;
+  }
+  .graphics-hero-marquee img {
+    height: 360px !important; /* still big */
+    margin-right: 1.5rem;
+  }
+}
+
+/* Small phones (≤576px) */
+@media (max-width: 576px) {
+  .hero-bg-text .featured-text {
+    font-size: 18vw;
+    top: 7%;
+    left: 7%;
+  }
+  .hero-bg-text .graphics-text {
+    font-size: 17vw;
+    bottom: 7%;
+    right: 7%;
+  }
+  .graphics-hero-marquee img {
+    height: 320px !important; /* still fills screen nicely */
+    margin-right: 1rem;
+  }
+}
+
+/* Very small phones (≤400px) */
+@media (max-width: 400px) {
+  .hero-bg-text .featured-text {
+    font-size: 20vw;
+    top: 8%;
+    left: 8%;
+  }
+  .hero-bg-text .graphics-text {
+    font-size: 19vw;
+    bottom: 8%;
+    right: 8%;
+  }
+  .graphics-hero-marquee img {
+    height: 260px; /* minimum size for tiny screens */
+    margin-right: 0.75rem;
+  }
+}
+
+/* ======================= Graphics Lightbox ======================= */
+.graphics-lightbox {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.95); /* darker overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+}
+
+/* Show lightbox */
+.graphics-lightbox.show {
+  display: flex;
+}
+
+/* Lightbox image styling */
+.graphics-lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* 3D hover effect on image */
+.graphics-lightbox img:hover {
+  transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95);
+}
+
+/* Close button */
+.graphics-lightbox .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2.5rem;
+  color: #e0e0e0; /* lighter but muted */
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.graphics-lightbox .close:hover {
+  color: #ffffff; /* dark red highlight */
+  transform: scale(1.2);
+}
+
+/* Prevent image dragging cursor */
+.graphics-lightbox img {
+  cursor: grab;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .graphics-lightbox img {
+    max-width: 85%;
+    max-height: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .graphics-lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+  }
+  .graphics-lightbox .close {
+    font-size: 2rem;
+    top: 15px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .graphics-lightbox img {
+    max-width: 75%;
+    max-height: 75%;
+  }
+  .graphics-lightbox .close {
+    font-size: 1.8rem;
+    top: 10px;
+    right: 15px;
+  }
+}
+
+/* ======================= Filters ======================= */
+#graphicsFilters {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+#graphicsFilters .filter-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #fff;
+  color: #fff;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#graphicsFilters .filter-btn.active,
+#graphicsFilters .filter-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ======================= Work Grid ======================= */
+.work-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.work-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.work-card img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.work-card .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s;
+}
+
+.work-card:hover .overlay {
+  opacity: 1;
+}
+
+.view-icon {
+  font-size: 2rem;
+  color: #fff;
+}
+
+/* ======================= Lightbox ======================= */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+.lightbox .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ======================= Testimonials ======================= */
+#testimonials {
+  padding: 4rem 0;
+  background: #111;
+}
+
+.testimonial-card {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  color: #ccc;
+}
+
+.testimonial-card p {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.testimonial-card h5 {
+  color: #fff;
+}
+
+/* ======================= CTA ======================= */
+#cta {
+  padding: 4rem 0;
+  text-align: center;
+  background: #121212;
+}
+
+#cta h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#cta p {
+  margin-bottom: 1.5rem;
+}
+
+/* ======================= Footer ======================= */
+.footer {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+/* ======================= Responsive ======================= */
+@media (max-width: 768px) {
+  #graphicsHeroMarquee img {
+    height: 180px;
+    margin-right: 20px;
+  }
+  .work-card img {
+    width: 100%;
+    height: auto;
+  }
+}
