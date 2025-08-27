@@ -510,6 +510,7 @@ footer {
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  transition: all 0.3s ease !important;
 }
 
 /* Diagonal lines pattern overlay */
@@ -831,7 +832,7 @@ ghlights h2,
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   padding: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
   color: #f0f0f0;
   display: flex;
   flex-direction: column;
@@ -847,6 +848,7 @@ ghlights h2,
 
 #team .card:hover {
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease !important;
 }
 
 #team .card img {
