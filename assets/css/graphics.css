@@ -87,47 +87,44 @@ body {
   white-space: nowrap;
 }
 
-/* ======================= Responsive font sizes ======================= */
-
-/* Tablets */
-@media (max-width: 992px) {
-  .hero-bg-text .featured-text {
-    font-size: 16vw;
-    top: 6%;
-    left: 6%;
-  }
-  .hero-bg-text .graphics-text {
-    font-size: 14vw;
-    bottom: 6%;
-    right: 6%;
-  }
-}
-
-/* From 750px down → keep big, only tweak spacing */
+/* ======================= Mobile Layout Switch ======================= */
 @media (max-width: 750px) {
+  /* Featured → closer above marquee */
   .hero-bg-text .featured-text {
-    font-size: 15vw; /* stay bold & visible */
-    top: 6%;
-    left: 6%;
-  }
-  .hero-bg-text .graphics-text {
     font-size: 14vw;
-    bottom: 6%;
-    right: 6%;
+    top: 15%; /* lower down, closer to marquee */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  /* Graphics → closer below marquee */
+  .hero-bg-text .graphics-text {
+    font-size: 13vw;
+    bottom: 15%; /* higher up, closer to marquee */
+    right: 50%;
+    transform: translateX(50%);
+    text-align: center;
+  }
+
+  .graphics-hero-marquee img {
+    height: 330px;
   }
 }
 
-/* Small phones (up to 576px) */
+/* Smaller phones */
 @media (max-width: 576px) {
   .hero-bg-text .featured-text {
     font-size: 16vw;
-    top: 7%;
-    left: 7%;
+    top: 12%; /* closer still */
   }
   .hero-bg-text .graphics-text {
     font-size: 15vw;
-    bottom: 7%;
-    right: 7%;
+    bottom: 12%;
+  }
+
+  .graphics-hero-marquee img {
+    height: 100px;
   }
 }
 
@@ -135,13 +132,15 @@ body {
 @media (max-width: 400px) {
   .hero-bg-text .featured-text {
     font-size: 18vw;
-    top: 8%;
-    left: 8%;
+    top: 10%;
   }
   .hero-bg-text .graphics-text {
-    font-size: 16vw;
-    bottom: 8%;
-    right: 8%;
+    font-size: 17vw;
+    bottom: 10%;
+  }
+
+  .graphics-hero-marquee img {
+    height: 230px;
   }
 }
 
@@ -170,61 +169,6 @@ body {
 .graphics-hero-marquee img:hover {
   transform: scale(1.05);
   cursor: pointer;
-}
-
-/* ======================= Mobile Adjustments ======================= */
-/* Start scaling at 750px */
-@media (max-width: 750px) {
-  .hero-bg-text .featured-text {
-    font-size: 17vw;
-    top: 6%;
-    left: 6%;
-  }
-  .hero-bg-text .graphics-text {
-    font-size: 16vw;
-    bottom: 6%;
-    right: 6%;
-  }
-  .graphics-hero-marquee img {
-    height: 360px !important; /* still big */
-    margin-right: 1.5rem;
-  }
-}
-
-/* Small phones (≤576px) */
-@media (max-width: 576px) {
-  .hero-bg-text .featured-text {
-    font-size: 18vw;
-    top: 7%;
-    left: 7%;
-  }
-  .hero-bg-text .graphics-text {
-    font-size: 17vw;
-    bottom: 7%;
-    right: 7%;
-  }
-  .graphics-hero-marquee img {
-    height: 320px !important; /* still fills screen nicely */
-    margin-right: 1rem;
-  }
-}
-
-/* Very small phones (≤400px) */
-@media (max-width: 400px) {
-  .hero-bg-text .featured-text {
-    font-size: 20vw;
-    top: 8%;
-    left: 8%;
-  }
-  .hero-bg-text .graphics-text {
-    font-size: 19vw;
-    bottom: 8%;
-    right: 8%;
-  }
-  .graphics-hero-marquee img {
-    height: 260px; /* minimum size for tiny screens */
-    margin-right: 0.75rem;
-  }
 }
 
 /* ======================= Graphics Lightbox ======================= */
@@ -462,16 +406,4 @@ body {
   background: rgba(255, 255, 255, 0.05);
   padding: 2rem 0;
   text-align: center;
-}
-
-/* ======================= Responsive ======================= */
-@media (max-width: 768px) {
-  #graphicsHeroMarquee img {
-    height: 180px;
-    margin-right: 20px;
-  }
-  .work-card img {
-    width: 100%;
-    height: auto;
-  }
 }
