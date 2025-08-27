@@ -1,27 +1,59 @@
-// Smooth scrolling for nav links
-document.querySelectorAll("a.nav-link").forEach((link) => {
+// Smooth scroll
+function smoothScrollTo(targetY, duration = 600) {
+  const startY = window.scrollY;
+  const diff = targetY - startY;
+  let startTime;
+
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const time = timestamp - startTime;
+    const percent = Math.min(time / duration, 1);
+    window.scrollTo(0, startY + diff * easeInOutQuad(percent));
+    if (time < duration) {
+      requestAnimationFrame(step);
+    }
+  }
+
+  // Ease function
+  function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  }
+
+  requestAnimationFrame(step);
+}
+
+// Smooth scroll for footer links
+document.querySelectorAll("footer a[href^='#']").forEach((link) => {
   link.addEventListener("click", function (e) {
-    if (this.hash !== "") {
-      e.preventDefault();
-      const target = document.querySelector(this.hash);
-      if (target) {
-        window.scrollTo({
-          top: target.offsetTop - 60,
-          behavior: "smooth",
-        });
-      }
+    e.preventDefault();
+    const targetId = this.getAttribute("href");
+    const target = document.querySelector(targetId);
+
+    if (target) {
+      const y = target.getBoundingClientRect().top + window.pageYOffset - 60; // adjust offset for navbar
+      smoothScrollTo(y);
     }
   });
 });
 
-// Contact form
-const contactForm = document.querySelector("form");
-if (contactForm) {
-  contactForm.addEventListener("submit", function (e) {
+// Back to Top button smooth scroll
+const backToTop = document.getElementById("backToTop");
+if (backToTop) {
+  backToTop.addEventListener("click", (e) => {
     e.preventDefault();
-    alert("Message sent! (connect backend or EmailJS here)");
+    smoothScrollTo(0);
   });
 }
+
+const backToTopBtn = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    // show after scrolling 300px
+    backToTopBtn.classList.add("show");
+  } else {
+    backToTopBtn.classList.remove("show");
+  }
+});
 
 // Marquee animation
 const marquee = document.getElementById("heroMarquee");
@@ -55,6 +87,34 @@ const toggler = document.querySelector(".navbar-toggler");
 if (toggler) {
   toggler.addEventListener("click", function () {
     this.classList.toggle("open");
+  });
+}
+// Animate mobile navbar collapse height
+document.querySelectorAll(".navbar-collapse").forEach((collapse) => {
+  collapse.addEventListener("show.bs.collapse", (e) => {
+    const el = e.target;
+    el.style.height = "0";
+    setTimeout(() => {
+      el.style.height = el.scrollHeight + "px";
+    });
+  });
+
+  collapse.addEventListener("hide.bs.collapse", (e) => {
+    const el = e.target;
+    el.style.height = el.scrollHeight + "px";
+    setTimeout(() => {
+      el.style.height = "0";
+    });
+  });
+});
+
+// Ensure navbar toggler resets when navbar collapses
+const navbarCollapse = document.querySelector(".navbar-collapse");
+const navbarToggler = document.querySelector(".navbar-toggler");
+
+if (navbarCollapse && navbarToggler) {
+  navbarCollapse.addEventListener("hidden.bs.collapse", () => {
+    navbarToggler.classList.remove("open");
   });
 }
 
@@ -92,6 +152,40 @@ function revealAboutElements() {
     const elTop = el.getBoundingClientRect().top;
     if (elTop < triggerBottom) {
       el.classList.add("reveal");
+    }
+  });
+}
+
+// About extra
+const readMoreBtn = document.getElementById("readMoreBtn");
+const aboutExtra = document.getElementById("aboutExtra");
+
+if (readMoreBtn && aboutExtra) {
+  readMoreBtn.addEventListener("click", () => {
+    if (aboutExtra.classList.contains("show")) {
+      aboutExtra.style.height = aboutExtra.scrollHeight + "px"; // start from current
+      requestAnimationFrame(() => {
+        aboutExtra.style.height = "0";
+        aboutExtra.style.opacity = "0";
+      });
+      aboutExtra.classList.remove("show");
+      readMoreBtn.textContent = "Read More";
+    } else {
+      const scrollHeight = aboutExtra.scrollHeight;
+      aboutExtra.classList.add("show");
+      aboutExtra.style.height = "0";
+      requestAnimationFrame(() => {
+        aboutExtra.style.height = scrollHeight + "px";
+        aboutExtra.style.opacity = "1";
+      });
+      readMoreBtn.textContent = "Read Less";
+
+      aboutExtra.addEventListener("transitionend", function handler() {
+        if (aboutExtra.classList.contains("show")) {
+          aboutExtra.style.height = "auto";
+        }
+        aboutExtra.removeEventListener("transitionend", handler);
+      });
     }
   });
 }
@@ -151,6 +245,20 @@ const swiper = new Swiper(".mySwiper", {
   },
 });
 
+// Handle "See More" button visibility
+const seeMoreBtn = document.getElementById("seeMoreBtn");
+
+if (seeMoreBtn) {
+  swiper.on("slideChange", () => {
+    if (swiper.isEnd) {
+      seeMoreBtn.classList.remove("d-none");
+      seeMoreBtn.classList.add("fade-in");
+    } else {
+      seeMoreBtn.classList.add("d-none");
+    }
+  });
+}
+
 // Service animation
 const serviceElements = document.querySelectorAll(
   "#services h2, #services .card"
@@ -203,9 +311,7 @@ window.addEventListener("scroll", revealTeam);
 window.addEventListener("load", revealTeam);
 
 // Animate elements in each section separately
-const sectionsToAnimate = document.querySelectorAll(
-  "#about, #services, #work, #highlights, #team, #contact"
-);
+const sectionsToAnimate = document.querySelectorAll("#work, #team, #contact");
 
 function revealSectionElements() {
   const triggerBottom = window.innerHeight * 0.85;
@@ -221,7 +327,7 @@ function revealSectionElements() {
         children.forEach((el, index) => {
           setTimeout(() => {
             el.classList.add("visible");
-          }, index * 100); // stagger within the section only
+          }, index * 100);
         });
         section.classList.add("animated");
       }
@@ -231,3 +337,37 @@ function revealSectionElements() {
 
 window.addEventListener("scroll", revealSectionElements);
 window.addEventListener("load", revealSectionElements);
+
+// Smooth scroll for Work, Team (in Other) and Contact
+document.addEventListener("DOMContentLoaded", () => {
+  const OFFSET = 60;
+
+  // Target only the specific links
+  const smoothLinks = document.querySelectorAll(
+    '#otherDropdown + .dropdown-menu a[href="#work"], ' +
+      '#otherDropdown + .dropdown-menu a[href="#team"], ' +
+      'a.nav-link[href="#contact"]'
+  );
+
+  smoothLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const targetID = link.getAttribute("href");
+      const targetEl = document.querySelector(targetID);
+      if (!targetEl) return;
+
+      e.preventDefault();
+
+      // Smooth scroll calculation
+      const targetY =
+        targetEl.getBoundingClientRect().top + window.scrollY - OFFSET;
+
+      smoothScrollTo(targetY);
+
+      // Close mobile navbar if open
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+      if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+        bootstrap.Collapse.getInstance(navbarCollapse).hide();
+      }
+    });
+  });
+});
