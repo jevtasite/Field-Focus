@@ -508,7 +508,7 @@ footer {
 #services .card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* pushes footer content down if needed */
+  justify-content: space-between;
   flex: 1;
 }
 
@@ -546,6 +546,7 @@ footer {
 #services .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
 #services i {
@@ -752,7 +753,18 @@ footer {
 }
 
 /* Highlights Section initial state */
-#highlights h2,
+#highlights .container {
+  text-align: center; /* ensures text is centered */
+}
+
+#highlights .lead {
+  display: inline-block; /* lets margin and width behave properly */
+  max-width: 700px; /* optional: control line length */
+  width: 100%;
+  margin: 0 auto 3rem auto; /* center with spacing below */
+}
+
+ghlights h2,
 #highlights p,
 #highlights .video-wrapper {
   opacity: 0;
@@ -834,7 +846,6 @@ footer {
 }
 
 #team .card:hover {
-  transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
 }
 
@@ -872,7 +883,7 @@ footer {
   }
 }
 
-/* Social icons  team*/
+/* Social icons team*/
 .team-socials {
   display: flex;
   justify-content: center;
