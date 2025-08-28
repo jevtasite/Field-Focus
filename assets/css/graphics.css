@@ -117,7 +117,7 @@ body {
 }
 .marquee-content span {
   display: inline-block;
-  margin-right: 3rem; /* spacing between repeated text */
+  margin-right: 3rem;
 }
 
 /* Featured text mobile */
