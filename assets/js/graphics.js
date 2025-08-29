@@ -325,19 +325,37 @@
 // ======================= Graphics Hero Line =======================
 (() => {
   const positionHeroLine = () => {
-    const navbar = document.querySelector(".navbar");
+    const hero = document.querySelector(".graphics-hero");
     const swiper = document.querySelector(".hero-swiper");
     const accentLine = document.querySelector(".hero-accent-line");
-    if (!navbar || !swiper || !accentLine) return;
+    if (!hero || !swiper || !accentLine) return;
 
-    const navbarBottom = navbar.getBoundingClientRect().bottom + window.scrollY;
+    const heroTop = hero.getBoundingClientRect().top + window.scrollY;
     const swiperTop = swiper.getBoundingClientRect().top + window.scrollY;
 
-    // vertical center between navbar bottom and swiper top
-    accentLine.style.top = `${navbarBottom + (swiperTop - navbarBottom) / 2}px`;
+    // place line vertically halfway between navbar bottom and swiper top
+    const navbarHeight = document.querySelector(".navbar")?.offsetHeight ?? 0;
+    const topY = navbarHeight + 0; // small offset if needed
+    const bottomY = swiperTop;
+
+    accentLine.style.top = `${topY + (bottomY - topY) / 2}px`;
   };
 
-  window.addEventListener("load", positionHeroLine);
+  window.addEventListener("load", () => {
+    // wait for images
+    const images = document.querySelectorAll(".hero-swiper img");
+    let loadedCount = 0;
+    images.forEach((img) => {
+      if (img.complete) loadedCount++;
+      else
+        img.addEventListener("load", () => {
+          loadedCount++;
+          if (loadedCount === images.length) positionHeroLine();
+        });
+    });
+    if (loadedCount === images.length) positionHeroLine();
+  });
+
   window.addEventListener("resize", positionHeroLine);
 })();
 
