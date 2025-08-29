@@ -249,10 +249,14 @@ window.addEventListener("load", handleScroll);
 // ======================= Smooth Scroll for Specific Links =======================
 document.addEventListener("DOMContentLoaded", () => {
   const OFFSET = 60;
+
+  // Select dropdown links and hero buttons
   const smoothLinks = document.querySelectorAll(
     '#otherDropdown + .dropdown-menu a[href="#work"], ' +
       '#otherDropdown + .dropdown-menu a[href="#team"], ' +
-      'a.nav-link[href="#contact"]'
+      'a.nav-link[href="#contact"], ' +
+      '.hero-buttons a[href="#work"], ' +
+      '.hero-buttons a[href="#contact"]'
   );
 
   smoothLinks.forEach((link) => {
@@ -260,11 +264,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetEl = document.querySelector(link.getAttribute("href"));
       if (!targetEl) return;
       e.preventDefault();
+
       smoothScrollTo(
         targetEl.getBoundingClientRect().top + window.scrollY - OFFSET
       );
 
-      if (navbarCollapse && navbarCollapse.classList.contains("show"))
+      // Close mobile navbar if open
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+      if (navbarCollapse?.classList.contains("show"))
         bootstrap.Collapse.getInstance(navbarCollapse).hide();
     });
   });
