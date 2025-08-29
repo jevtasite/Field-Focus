@@ -36,17 +36,44 @@
 })();
 
 // ======================= Back-to-top =======================
-(() => {
-  const btn = document.getElementById("backToTop");
-  if (!btn) return;
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+document.addEventListener("DOMContentLoaded", () => {
+  // Only run on videos page
+  if (!document.body.classList.contains("videos-page")) return;
+
+  const backToTop = document.getElementById("backToTop");
+  if (!backToTop) return;
+
+  // Show/hide button on scroll
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 300);
   });
-  window.addEventListener("scroll", () =>
-    btn.classList.toggle("show", window.scrollY > 300)
-  );
-})();
+
+  // Smooth scroll to top
+  function smoothScrollTo(targetY, duration = 600) {
+    const startY = window.scrollY;
+    const diff = targetY - startY;
+    let startTime;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const time = timestamp - startTime;
+      const percent = Math.min(time / duration, 1);
+      const eased =
+        percent < 0.5
+          ? 2 * percent * percent
+          : -1 + (4 - 2 * percent) * percent;
+      window.scrollTo(0, startY + diff * eased);
+      if (time < duration) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  backToTop.addEventListener("click", (e) => {
+    e.preventDefault();
+    smoothScrollTo(0);
+  });
+});
 
 // ======================= Hero Swiper =======================
 (() => {
@@ -122,61 +149,55 @@
   });
 })();
 
-// ======================= Scroll Animations =======================
-(() => {
-  const sections = document.querySelectorAll(".graphics-hero, #cta, #contact");
-  const animate = (el) => el.classList.add("visible");
-  const revealOnScroll = () => {
-    const trigger = window.innerHeight * 0.85;
-    sections.forEach((sec) => {
+// ======================= Scroll-triggered Animations =======================
+document.addEventListener("DOMContentLoaded", () => {
+  const animatedSections = [
+    document.querySelector(".videos-hero"),
+    document.querySelector("#videos-gallery"),
+    document.querySelector("#stats"),
+    document.querySelector("#cta"),
+    document.querySelector("#contact"),
+  ].filter(Boolean); // remove nulls
+
+  // Animate children with stagger
+  function animateElements(elements) {
+    elements.forEach((el, index) => {
+      setTimeout(() => el.classList.add("visible"), index * 100);
+    });
+  }
+
+  function revealOnScroll() {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    animatedSections.forEach((section) => {
       if (
-        sec.getBoundingClientRect().top < trigger &&
-        !sec.classList.contains("animated")
+        section.getBoundingClientRect().top < triggerBottom &&
+        !section.classList.contains("animated")
       ) {
-        animate(sec);
-        sec.classList.add("animated");
+        let children = [];
+
+        if (section.classList.contains("videos-hero")) {
+          children = section.querySelectorAll(
+            "h1, .hero-accent-line .line, .hero-subtitle, .hero-social, .hero-btn"
+          );
+        } else if (section.id === "videos-gallery") {
+          children = section.querySelectorAll(".work-card-flip, .btn-gallery");
+        } else if (section.id === "stats") {
+          children = section.querySelectorAll(".stat-card");
+        } else if (section.id === "cta") {
+          children = section.querySelectorAll("h2, a");
+        } else if (section.id === "contact") {
+          children = section.querySelectorAll("h2, p, a, .d-flex a");
+        }
+
+        animateElements(children);
+        section.classList.add("animated");
       }
     });
-  };
+  }
+
   window.addEventListener("scroll", revealOnScroll);
   window.addEventListener("load", revealOnScroll);
-})();
-
-// Hero Video Fade-in
-window.addEventListener("load", () => {
-  const heroVideo = document.querySelector(".hero-video-embed");
-  if (heroVideo) {
-    heroVideo.classList.add("visible");
-  }
-});
-
-// Caption
-document.addEventListener("DOMContentLoaded", () => {
-  const hero = document.querySelector(".videos-hero");
-  const caption = document.querySelector(".hero-caption");
-
-  // Add visible class to trigger CSS animations
-  setTimeout(() => {
-    hero.classList.add("visible");
-    if (caption) caption.classList.add("visible");
-  }, 200); // small delay for smoother effect
-});
-
-//Gallery show more
-const showMoreBtn = document.getElementById("showMoreVideos");
-const extraVideos = document.querySelectorAll(".extra-video");
-let isShown = false;
-
-showMoreBtn.addEventListener("click", () => {
-  isShown = !isShown;
-  extraVideos.forEach((video) => {
-    if (isShown) {
-      video.classList.add("show");
-    } else {
-      video.classList.remove("show");
-    }
-  });
-  showMoreBtn.textContent = isShown ? "Show Less" : "Show More";
 });
 
 // Animate stats numbers
@@ -194,7 +215,7 @@ function animateStats() {
     statsNumbers.forEach((num) => {
       const target = +num.getAttribute("data-target");
       let count = 0;
-      const increment = target / 150; // animation speed
+      const increment = target / 300; // animation speed
 
       const updateNum = () => {
         count += increment;
@@ -213,3 +234,132 @@ function animateStats() {
 
 window.addEventListener("scroll", animateStats);
 window.addEventListener("load", animateStats);
+
+// ======================= On-page smooth scroll =======================
+document.addEventListener("DOMContentLoaded", () => {
+  // Only run on videos page
+  if (!document.body.classList.contains("videos-page")) return;
+
+  const OFFSET = 80; // height of your navbar
+
+  function smoothScrollTo(targetY, duration = 600) {
+    const startY = window.scrollY;
+    const diff = targetY - startY;
+    let startTime;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const time = timestamp - startTime;
+      const percent = Math.min(time / duration, 1);
+      const eased =
+        percent < 0.5
+          ? 2 * percent * percent
+          : -1 + (4 - 2 * percent) * percent;
+      window.scrollTo(0, startY + diff * eased);
+      if (time < duration) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // All page anchors
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const target = document.querySelector(link.getAttribute("href"));
+      if (!target) return;
+      e.preventDefault();
+      const targetY =
+        target.getBoundingClientRect().top + window.scrollY - OFFSET;
+      smoothScrollTo(targetY);
+    });
+  });
+
+  // Back-to-top button
+  const backToTop = document.getElementById("backToTop");
+  if (backToTop) {
+    backToTop.addEventListener("click", (e) => {
+      e.preventDefault();
+      smoothScrollTo(0);
+    });
+
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 300);
+    });
+  }
+});
+
+// ======================= CTA Get In Touch Button =======================
+(() => {
+  const ctaBtn = document.querySelector("#cta a");
+  const contactSection = document.querySelector("#contact");
+
+  if (!ctaBtn || !contactSection) return;
+
+  const contactChildren = contactSection.querySelectorAll(
+    "h2, p, a, .d-flex a"
+  );
+
+  function animateElements(elements) {
+    elements.forEach((el, index) => {
+      setTimeout(() => el.classList.add("visible"), index * 100);
+    });
+  }
+
+  function hideElements(elements) {
+    elements.forEach((el) => el.classList.remove("visible"));
+  }
+
+  ctaBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (!contactSection.classList.contains("show")) {
+      // Show contact section
+      contactSection.classList.add("show");
+      animateElements(contactChildren);
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Hide contact section
+      hideElements(contactChildren);
+      contactSection.classList.remove("show");
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+})();
+
+// ======================= Show More Videos Smooth =======================
+(() => {
+  const showMoreBtn = document.getElementById("showMoreVideos");
+  const extraVideos = document.querySelectorAll(".extra-video");
+
+  if (!showMoreBtn || !extraVideos.length) return;
+
+  // Set initial state
+  extraVideos.forEach((video) => {
+    video.style.maxHeight = "0";
+    video.style.opacity = "0";
+    video.style.overflow = "hidden";
+    video.style.transition =
+      "max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease";
+    video.style.transform = "translateY(20px)";
+  });
+
+  showMoreBtn.addEventListener("click", () => {
+    const isShowing = showMoreBtn.dataset.showing === "true";
+
+    extraVideos.forEach((video) => {
+      if (!isShowing) {
+        // Show video
+        video.style.maxHeight = video.scrollHeight + "px";
+        video.style.opacity = "1";
+        video.style.transform = "translateY(0)";
+      } else {
+        // Hide video
+        video.style.maxHeight = "0";
+        video.style.opacity = "0";
+        video.style.transform = "translateY(20px)";
+      }
+    });
+
+    showMoreBtn.textContent = isShowing ? "Show More" : "Show Less";
+    showMoreBtn.dataset.showing = isShowing ? "false" : "true";
+  });
+})();

@@ -1,3 +1,30 @@
+/* --- global smooth scroll + offset for fixed navbar --- */
+:root {
+  --nav-offset: 72px;
+} /* tweak this to match your navbar height */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Add a scroll margin so browser anchor jumps (fallback) don't get hidden */
+[id] {
+  scroll-margin-top: calc(var(--nav-offset) + 8px);
+}
+
+/* Offset so fixed navbar doesn't cover anchors */
+#videos-gallery,
+#stats,
+#cta,
+#contact {
+  scroll-margin-top: 80px;
+}
+
 /* ======================= Videos Hero ======================= */
 /* Hero Section with Background Video */
 .videos-hero {
@@ -149,6 +176,27 @@
   text-decoration: none;
 }
 
+#videos-gallery {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#videos-gallery::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 70%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: -1;
+}
+
 /* Grid Container */
 .work-grid-flip {
   display: flex;
@@ -245,14 +293,12 @@
 
 /* Extra Videos (hidden initially) */
 .extra-video {
+  display: block; /* Must be block so max-height works */
   max-height: 0;
   opacity: 0;
+  transform: translateY(20px);
   overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.5s ease;
-}
-.extra-video.show {
-  max-height: 500px; /* slightly bigger than card height */
-  opacity: 1;
+  transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
 }
 
 /* Responsive Breakpoints */
@@ -330,12 +376,21 @@
 }
 
 .stat-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) !important;
+  transition: all ease 0.3s;
   background: rgba(0, 0, 0, 0.75);
 }
 
+/* Icon inside stat card */
 .stat-card i {
-  color: #f5c518; /* gold */
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Icon brightening on hover */
+.stat-card:hover i {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 .stat-card h3 {
@@ -373,7 +428,7 @@
 
 /* ======================= CTA ======================= */
 #cta {
-  background: #252983;
+  background: #121212;
   padding: 3rem 2rem;
 }
 
@@ -382,13 +437,15 @@
 }
 
 /* ======================= Contact ======================= */
-#contact a {
-  color: #fff;
-  transition: color 0.3s ease;
+#contact {
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+  max-height: 1000px; /* adjust as needed */
+  overflow: hidden;
 }
 
-#contact a:hover {
-  color: #f0c040;
+#contact:not(.show) {
+  max-height: 0;
+  opacity: 0;
 }
 
 /* ======================= Marquee ======================= */
@@ -421,4 +478,29 @@
 
 .back-to-top.show {
   display: block;
+}
+
+/* ======================= Scroll-triggered Animations ======================= */
+.videos-hero h1,
+.videos-hero .hero-accent-line .line,
+.videos-hero .hero-subtitle,
+.videos-hero .hero-social,
+.videos-hero .hero-btn,
+#videos-gallery .work-card-flip,
+#videos-gallery .btn-gallery,
+#stats .stat-card,
+#cta h2,
+#cta a,
+#contact h2,
+#contact p,
+#contact a,
+#contact .d-flex a {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
