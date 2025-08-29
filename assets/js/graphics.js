@@ -44,47 +44,57 @@
   }
 })();
 
-// ======================= Smooth Scroll =======================
-// Smooth scroll to top
-(() => {
+// ======================= On-page smooth scroll + Back-to-top =======================
+document.addEventListener("DOMContentLoaded", () => {
+  if (!document.body.classList.contains("graphics-page")) return;
+
+  const OFFSET = 80; // navbar height
+
   function smoothScrollTo(targetY, duration = 600) {
     const startY = window.scrollY;
     const diff = targetY - startY;
     let startTime;
 
-    function step(ts) {
-      if (!startTime) startTime = ts;
-      const t = ts - startTime;
-      const p = Math.min(t / duration, 1);
-      const eased = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const time = timestamp - startTime;
+      const percent = Math.min(time / duration, 1);
+      const eased =
+        percent < 0.5
+          ? 2 * percent * percent
+          : -1 + (4 - 2 * percent) * percent;
       window.scrollTo(0, startY + diff * eased);
-      if (t < duration) requestAnimationFrame(step);
+      if (time < duration) requestAnimationFrame(step);
     }
 
     requestAnimationFrame(step);
   }
 
-  const backToTop = document.querySelector("#backToTop");
-  backToTop?.addEventListener("click", (e) => {
-    e.preventDefault();
-    smoothScrollTo(0, 600); // Scroll to top
+  // Smooth scroll for in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const target = document.querySelector(link.getAttribute("href"));
+      if (!target) return;
+      e.preventDefault();
+      const targetY =
+        target.getBoundingClientRect().top + window.scrollY - OFFSET;
+      smoothScrollTo(targetY);
+    });
   });
-})();
 
-// ======================= Back-to-top =======================
-(() => {
+  // Smooth scroll for back-to-top
   const backToTop = document.getElementById("backToTop");
-  if (!backToTop) return;
+  if (backToTop) {
+    backToTop.addEventListener("click", (e) => {
+      e.preventDefault();
+      smoothScrollTo(0);
+    });
 
-  backToTop.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 300);
-  });
-})();
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 300);
+    });
+  }
+});
 
 // ======================= Hero Swiper =======================
 (() => {
