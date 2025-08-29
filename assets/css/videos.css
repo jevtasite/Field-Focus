@@ -1,0 +1,424 @@
+/* ======================= Videos Hero ======================= */
+/* Hero Section with Background Video */
+.videos-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #1a1a1a; /* same as graphics */
+  overflow: hidden;
+  color: #fff;
+}
+
+/* Background video */
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+  filter: grayscale(100%) brightness(60%) contrast(120%);
+}
+
+/* Line overlay */
+.videos-hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 25px
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Hero content */
+.videos-hero .hero-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Accent line and title */
+.hero-accent-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.hero-accent-line .line {
+  flex: 1;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  opacity: 0.4;
+  animation: glowLine 3s ease-in-out infinite;
+}
+
+.hero-accent-line h1 {
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+/* Glow line animation */
+@keyframes glowLine {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Responsive font */
+@media (max-width: 768px) {
+  .hero-accent-line h1 {
+    font-size: 2.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .hero-accent-line h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Hero content text */
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  color: #e0e0e0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Social icons container */
+.hero-social {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.hero-social .social-icon {
+  font-size: 2.5rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.hero-social .social-icon:hover {
+  transform: scale(1.1);
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.hero-social .social-icon:nth-child(2):hover {
+  transform: scale(1.1);
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* View more button styling */
+.hero-btn {
+  display: inline-block;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #fff;
+  color: #000;
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+/* Grid Container */
+.work-grid-flip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.5rem; /* gap between videos */
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+/* Video Card */
+.work-card-flip {
+  flex: 0 0 280px;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.4s ease, opacity 0.35s ease;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .work-grid-flip {
+    gap: 1rem; /* smaller gap on mobile */
+  }
+
+  /* Optional: remove extra space after visible row */
+  .work-grid-flip:not(:has(.extra-video.show)) {
+    margin-bottom: 1rem; /* keeps button closer */
+  }
+}
+
+/* Card Hover Effects */
+.work-card-flip:hover {
+  transform: scale(1.05);
+}
+.work-card-flip img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: inherit;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+.work-card-flip:hover img {
+  transform: scale(1.05) rotate(0.5deg);
+  filter: brightness(1.1);
+}
+
+/* Overlay */
+.overlay-flip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.25s ease;
+  pointer-events: none;
+}
+.work-card-flip:hover .overlay-flip {
+  opacity: 1;
+}
+
+/* Play Button */
+.view-btn-flip {
+  pointer-events: auto;
+  font-size: 2rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  padding: 0.8rem 1rem;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.22s ease, transform 0.22s ease, background 0.22s ease;
+}
+.work-card-flip:hover .view-btn-flip {
+  opacity: 1;
+  transform: scale(1);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-gallery {
+  display: inline-block;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Extra Videos (hidden initially) */
+.extra-video {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+.extra-video.show {
+  max-height: 500px; /* slightly bigger than card height */
+  opacity: 1;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 992px) {
+  .work-card-flip {
+    flex: 0 0 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .work-card-flip {
+    flex: 0 0 calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .work-card-flip {
+    flex: 0 0 calc(100% - 1rem);
+  }
+}
+
+/* ======================= Stats ======================= */
+#stats {
+  position: relative;
+  color: #fff;
+  background: #111;
+  overflow: hidden;
+}
+
+#stats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 25px
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+#stats h2 {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+
+/* Cards container */
+.stats-cards {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5rem !important;
+}
+
+/* Individual stat card */
+.stat-card {
+  background: #121212cb;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.stat-card i {
+  color: #f5c518; /* gold */
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.stat-card p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ddd;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stat-card {
+    width: 140px;
+    padding: 1.5rem 1rem;
+  }
+
+  .stat-card h3 {
+    font-size: 1.7rem;
+  }
+
+  .stat-card p {
+    font-size: 0.9rem;
+  }
+
+  .stats-cards {
+    gap: 1rem;
+  }
+}
+
+/* ======================= CTA ======================= */
+#cta {
+  background: #252983;
+  padding: 3rem 2rem;
+}
+
+#cta a {
+  margin-top: 1rem;
+}
+
+/* ======================= Contact ======================= */
+#contact a {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+#contact a:hover {
+  color: #f0c040;
+}
+
+/* ======================= Marquee ======================= */
+.featured-videos-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.featured-videos-marquee span {
+  display: inline-block;
+  margin-right: 2rem;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* ======================= Back-to-top ======================= */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+  z-index: 999;
+}
+
+.back-to-top.show {
+  display: block;
+}
