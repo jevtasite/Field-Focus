@@ -7,6 +7,49 @@ body {
   padding-top: 0;
 }
 
+/* Hero section */
+.graphics-hero h1,
+.graphics-hero .hero-accent-line,
+.graphics-hero .hero-swiper .swiper-slide img,
+.graphics-hero .featured-graphics-marquee,
+.graphics-hero .featured-graphics-bg {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Testimonials */
+.testimonial-card,
+.testimonials-swiper .swiper-slide {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* CTA */
+#cta h2,
+#cta a {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Contact */
+#contact h2,
+#contact p,
+#contact a,
+#contact .d-flex a {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Trigger class for animation */
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
 /* ======================= Graphics Hero ======================= */
 .graphics-hero {
   position: relative;
@@ -122,27 +165,6 @@ body {
 
 /* Featured text mobile */
 
-/* Medium screens */
-@media (min-width: 751px) and (max-width: 992px) {
-  .featured-graphics-marquee {
-    font-size: 5rem !important;
-  }
-}
-
-/* Small screens */
-@media (min-width: 481px) and (max-width: 750px) {
-  .featured-graphics-marquee {
-    font-size: 5rem !important;
-  }
-}
-
-/* Extra small screens */
-@media (min-width: 376px) and (max-width: 480px) {
-  .featured-graphics-marquee {
-    font-size: 7rem !important;
-  }
-}
-
 /* Specific small devices */
 @media (min-width: 344px) and (max-width: 375px) and (min-height: 667px) and (max-height: 882px) {
   .featured-graphics-marquee {
@@ -222,6 +244,63 @@ body {
   }
 }
 
+.hero-accent-line {
+  position: absolute;
+  left: 0; /* align to left of parent */
+  right: 0; /* stretch to right */
+  margin: 0 auto; /* horizontally center with max-width */
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 5;
+  top: 0; /* JS sets vertical */
+}
+
+.hero-accent-line .line {
+  flex: 1;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  opacity: 0.4;
+  animation: glowLine 3s ease-in-out infinite;
+}
+
+#graphTop {
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+@keyframes glowLine {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* responsive font size */
+@media (max-width: 992px) {
+  #graphTop {
+    font-size: 3.5rem;
+  }
+}
+@media (max-width: 768px) {
+  #graphTop {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 480px) {
+  #graphTop {
+    font-size: 1.8rem;
+  }
+}
+
 /* ======================= Filters ======================= */
 #graphicsFilters {
   text-align: center;
@@ -243,125 +322,287 @@ body {
   color: #000;
 }
 
-/* ======================= Work Grid ======================= */
-.work-grid {
+/* ======================= Work — FLIP animated filtering ======================= */
+/* Container */
+.work-grid-flip {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* allow multiple rows */
   gap: 1.5rem;
-  justify-content: center;
-}
-.work-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-.work-card img {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-}
-.work-card .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.3s;
-}
-.work-card:hover .overlay {
-  opacity: 1;
-}
-.view-icon {
-  font-size: 2rem;
-  color: #fff;
+  justify-content: center; /* center horizontally */
+  align-items: flex-start;
+  overflow-x: auto; /* horizontal scroll on small screens */
+  padding: 1rem 0;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
-/* ======================= Lightbox ======================= */
+/* Card */
+.work-card-flip {
+  flex: 0 0 260px; /* fixed card width */
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  position: relative;
+  transition: transform 450ms cubic-bezier(0.2, 0.9, 0.2, 1), opacity 350ms ease;
+  will-change: transform, opacity;
+  cursor: pointer;
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image inside */
+.work-card-flip img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  border-radius: inherit;
+  background: #0f0f0f;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* Hover behavior for images */
+.work-card-flip:hover img {
+  transform: scale(1.05) rotate(1deg);
+  filter: brightness(1.1);
+}
+
+/* Overlay (eye button) */
+.overlay-flip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  transition: background 250ms ease;
+  pointer-events: none;
+}
+
+/* View button */
+.view-btn-flip {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 220ms ease, transform 220ms ease, background 220ms ease;
+}
+
+/* Hover behaviors */
+.work-card-flip:hover .overlay-flip {
+  background: rgba(0, 0, 0, 0.35);
+}
+.work-card-flip:hover .view-btn-flip {
+  opacity: 1;
+  transform: scale(1);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Hidden class: removed from layout for FLIP animation */
+.hidden-flip {
+  display: none !important;
+}
+
+/* Clone temp styling (used in JS for exiting cards) */
+.clone-temp {
+  border-radius: 14px;
+  overflow: hidden;
+  pointer-events: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  will-change: transform, opacity;
+}
+
+/* Entrance animation for new cards */
+.work-card-flip.entering {
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+}
+
+/* Filter button active state */
+.filter-btn-flip.active {
+  background: #fff;
+  color: #000;
+}
+
+/* Lightbox */
 .graphics-lightbox {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(15, 15, 15, 0.95);
+  background: rgba(10, 10, 10, 0.95);
   justify-content: center;
   align-items: center;
   z-index: 9999;
   cursor: pointer;
   overflow: hidden;
-  transition: opacity 0.3s ease;
+  transition: opacity 220ms ease;
 }
 .graphics-lightbox.show {
   display: flex;
 }
 .graphics-lightbox img {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 92%;
+  max-height: 92%;
   border-radius: 12px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.graphics-lightbox img:hover {
-  transform: scale(1.05) rotateX(5deg) rotateY(5deg);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+  transform-origin: center;
+  transition: transform 300ms ease;
 }
 .graphics-lightbox .close {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 2.5rem;
-  color: #e0e0e0;
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
+  top: 18px;
+  right: 22px;
+  font-size: 2.4rem;
+  color: #eaeaea;
 }
-.graphics-lightbox .close:hover {
-  color: #fff;
-  transform: scale(1.2);
+
+/* ================= Responsive Adjustments ================= */
+@media (max-width: 1200px) {
+  .work-card-flip {
+    flex: 0 0 220px;
+  }
+}
+@media (max-width: 992px) {
+  .work-grid-flip {
+    gap: 1rem;
+  }
+  .work-card-flip {
+    flex: 0 0 180px;
+  }
 }
 @media (max-width: 768px) {
-  .graphics-lightbox img {
-    max-width: 80%;
-    max-height: 80%;
+  .work-grid-flip {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
   }
-  .graphics-lightbox .close {
-    font-size: 2rem;
-    top: 15px;
-    right: 20px;
+  .work-card-flip {
+    flex: 0 0 calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
   }
 }
 @media (max-width: 480px) {
-  .graphics-lightbox img {
-    max-width: 75%;
-    max-height: 75%;
+  .work-card-flip {
+    flex: 0 0 calc(100% - 1rem);
+    max-width: calc(100% - 1rem);
   }
-  .graphics-lightbox .close {
-    font-size: 1.8rem;
-    top: 10px;
-    right: 15px;
+  .view-btn-flip {
+    font-size: 1.5rem;
   }
 }
 
-/* ======================= Testimonials ======================= */
+/* ======================= Testimonial Section ================= */
 #testimonials {
-  padding: 4rem 0;
-  background: #111;
+  background: #121212;
+  color: #e0e0e0;
+  position: relative;
+  padding: 5rem 0;
+  overflow: hidden;
 }
+
+/* Background lines like hero section */
+.testimonials-bg-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 25px
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Accent line title */
+#testimonials .hero-accent-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 2;
+}
+
+#testimonials .hero-accent-line .line {
+  flex: 1;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  opacity: 0.4;
+  animation: glowLine 3s ease-in-out infinite;
+}
+
+#testimonials .hero-accent-line h2 {
+  font-size: 2.5rem;
+  font-style: italic;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* Testimonial cards */
 .testimonial-card {
-  background: #1a1a1a;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
   padding: 2rem;
-  border-radius: 12px;
-  text-align: center;
-  color: #ccc;
+  max-width: 350px;
+  margin: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
 }
-.testimonial-card p {
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+}
+
+.testimonial-text {
   font-style: italic;
   margin-bottom: 1rem;
+  opacity: 0.85;
 }
-.testimonial-card h5 {
+
+.testimonial-name {
+  font-weight: 700;
   color: #fff;
+}
+
+/* Swiper styling */
+.testimonials-swiper {
+  padding: 2rem 0;
+  z-index: 2;
+  position: relative;
+}
+
+.testimonials-swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.testimonials-swiper .swiper-button-next,
+.testimonials-swiper .swiper-button-prev {
+  color: #fff;
+  z-index: 2;
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.5;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
 }
 
 /* ======================= CTA ======================= */
@@ -378,6 +619,22 @@ body {
   margin-bottom: 1.5rem;
 }
 
+/* Initially hide contact section */
+#contact {
+  opacity: 0;
+  transform: translateY(30px);
+  max-height: 0; /* collapsed */
+  overflow: hidden; /* hide content */
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+}
+
+#contact.show {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 1000px; /* large enough to fit content */
+  pointer-events: auto;
+}
 /* ======================= Footer ======================= */
 .footer {
   background: rgba(255, 255, 255, 0.05);
