@@ -1,4 +1,4 @@
-/* --- global smooth scroll --- */
+/* --- global, smooth scroll --- */
 :root {
   --nav-offset: 72px;
 }
@@ -22,6 +22,10 @@ html {
 #cta,
 #contact {
   scroll-margin-top: 80px;
+}
+
+.btn-white {
+  transition: all 0.3s ease !important;
 }
 
 /* ======================= Videos Hero ======================= */
@@ -165,7 +169,7 @@ html {
   font-size: 1.1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease !important;
 }
 
 .hero-btn:hover {
@@ -173,6 +177,7 @@ html {
   color: #000;
   transform: translateY(-3px);
   text-decoration: none;
+  transition: all 0.3s ease !important;
 }
 
 #videos-gallery {
@@ -285,7 +290,7 @@ html {
   font-size: 1.1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease !important;
 }
 
 /* Extra Videos */

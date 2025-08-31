@@ -7,6 +7,10 @@ body {
   padding-top: 0;
 }
 
+.btn-white {
+  transition: all 0.3s ease !important;
+}
+
 /* Hero section */
 .graphics-hero h1,
 .graphics-hero .hero-accent-line,
@@ -487,10 +491,18 @@ body {
   transform: translateY(12px) scale(0.98);
 }
 
+.filter-btn-flip {
+  transition: all 0.3s ease;
+}
+
 /* Filter button active state */
 .filter-btn-flip.active {
   background: #fff;
   color: #000;
+}
+
+.filter-btn-flip {
+  transition: all 0.3s ease;
 }
 
 /* Lightbox */
