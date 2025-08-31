@@ -292,6 +292,10 @@ body {
   .hero-accent-line {
     top: 100px !important;
   }
+
+  #graphTop {
+    font-size: 2rem !important;
+  }
 }
 
 @media (max-height: 600px) {
