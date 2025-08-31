@@ -288,6 +288,10 @@ body {
     width: 300px;
     height: 375px;
   }
+
+  .hero-accent-line {
+    top: 100px !important;
+  }
 }
 
 @media (max-height: 600px) {
