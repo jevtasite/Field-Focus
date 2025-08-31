@@ -1,7 +1,7 @@
-/* --- global smooth scroll + offset for fixed navbar --- */
+/* --- global smooth scroll --- */
 :root {
   --nav-offset: 72px;
-} /* tweak this to match your navbar height */
+}
 html {
   scroll-behavior: smooth;
 }
@@ -12,7 +12,6 @@ html {
   }
 }
 
-/* Add a scroll margin so browser anchor jumps (fallback) don't get hidden */
 [id] {
   scroll-margin-top: calc(var(--nav-offset) + 8px);
 }
@@ -33,7 +32,7 @@ html {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: #1a1a1a; /* same as graphics */
+  background: #1a1a1a;
   overflow: hidden;
   color: #fff;
 }
@@ -197,11 +196,10 @@ html {
   z-index: -1;
 }
 
-/* Grid Container */
 .work-grid-flip {
   display: flex;
   flex-wrap: wrap;
-  gap: 3.5rem; /* gap between videos */
+  gap: 3.5rem;
   justify-content: center;
   align-items: flex-start;
   padding-top: 1rem;
@@ -223,12 +221,11 @@ html {
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .work-grid-flip {
-    gap: 1rem; /* smaller gap on mobile */
+    gap: 1rem;
   }
 
-  /* Optional: remove extra space after visible row */
   .work-grid-flip:not(:has(.extra-video.show)) {
-    margin-bottom: 1rem; /* keeps button closer */
+    margin-bottom: 1rem;
   }
 }
 
@@ -291,9 +288,9 @@ html {
   transition: all 0.3s ease;
 }
 
-/* Extra Videos (hidden initially) */
+/* Extra Videos */
 .extra-video {
-  display: block; /* Must be block so max-height works */
+  display: block;
   max-height: 0;
   opacity: 0;
   transform: translateY(20px);
@@ -439,7 +436,7 @@ html {
 /* ======================= Contact ======================= */
 #contact {
   transition: opacity 0.5s ease, max-height 0.5s ease;
-  max-height: 1000px; /* adjust as needed */
+  max-height: 1000px;
   overflow: hidden;
 }
 
