@@ -316,7 +316,11 @@ body {
   }
 
   .hero-accent-line {
-    top: 80px !important;
+    top: 70px !important;
+  }
+
+  #graphTop {
+    font-size: 1.6rem !important;
   }
 }
 
