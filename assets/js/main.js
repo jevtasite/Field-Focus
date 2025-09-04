@@ -248,12 +248,14 @@ window.addEventListener("load", handleScroll);
 
 // ======================= Smooth Scroll for Specific Links =======================
 document.addEventListener("DOMContentLoaded", () => {
-  const OFFSET = 60;
+  const OFFSET = 70;
 
   // Select dropdown links and hero buttons
   const smoothLinks = document.querySelectorAll(
     '#otherDropdown + .dropdown-menu a[href="#work"], ' +
       '#otherDropdown + .dropdown-menu a[href="#team"], ' +
+      '#otherDropdown + .dropdown-menu a[href="#contact"], ' +
+      '#otherDropdown + .dropdown-menu a[href="#services"], ' +
       'a.nav-link[href="#contact"], ' +
       '.hero-buttons a[href="#work"], ' +
       '.hero-buttons a[href="#contact"]'
