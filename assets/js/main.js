@@ -151,10 +151,22 @@ const swiper = new Swiper(".mySwiper", {
 });
 
 const seeMoreBtn = document.getElementById("seeMoreBtn");
+
 if (seeMoreBtn) {
+  // Hide button initially
+  seeMoreBtn.classList.add("d-none");
+
   swiper.on("slideChange", () => {
-    if (swiper.isEnd) seeMoreBtn.classList.replace("d-none", "fade-in");
-    else seeMoreBtn.classList.add("d-none");
+    const lastIndex = swiper.slides.length - 1; // last slide index
+    if (swiper.activeIndex === lastIndex) {
+      // Show button with fade-in
+      seeMoreBtn.classList.remove("d-none");
+      seeMoreBtn.classList.add("fade-in");
+    } else {
+      // Hide button
+      seeMoreBtn.classList.add("d-none");
+      seeMoreBtn.classList.remove("fade-in");
+    }
   });
 }
 
