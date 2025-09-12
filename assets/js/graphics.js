@@ -141,7 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const willShow = new Map(
       allCards.map((card) => [
         card,
-        category === "all" || card.dataset.category === category,
+        category === "all"
+          ? card.dataset.category === "filter1"
+          : card.dataset.category === category,
       ])
     );
 
@@ -243,8 +245,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Initial cleanup
-  cards.forEach((c) => c.classList.remove("hidden-flip"));
+  // Initial visibility setup
+  cards.forEach((c) => {
+    if (c.dataset.category !== "filter1") {
+      c.classList.add("hidden-flip"); // hide everything except matchdays
+    } else {
+      c.classList.remove("hidden-flip"); // show matchdays
+    }
+  });
 
   // Lightbox
   const createLightbox = () => {
