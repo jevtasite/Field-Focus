@@ -290,3 +290,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+const isMobile =
+  /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone/i.test(
+    navigator.userAgent
+  );
+
+const emailLink = document.getElementById("email-link");
+
+if (!isMobile) {
+  // Desktop Open Gmail in browser
+  emailLink.href =
+    "https://mail.google.com/mail/?view=cm&to=infofieldfocus@gmail.com";
+  emailLink.target = "_blank";
+}
