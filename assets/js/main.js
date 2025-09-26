@@ -93,21 +93,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Fast navbar close for mobile
+  // Proper navbar close that preserves hamburger animation
   function closeNavbar() {
     const navbarCollapse = document.querySelector(".navbar-collapse");
+    const navbarToggler = document.querySelector(".navbar-toggler");
+
     if (navbarCollapse && navbarCollapse.classList.contains("show")) {
-      if (isMobile) {
-        // Force immediate close on mobile
-        navbarCollapse.classList.remove("show");
-        navbarCollapse.style.height = "0px";
-        setTimeout(() => {
-          navbarCollapse.style.height = "";
-        }, 100);
+      // Always use Bootstrap's proper method to maintain state
+      const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+      if (bsCollapse) {
+        bsCollapse.hide();
       } else {
-        // Use Bootstrap collapse on desktop
-        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-        if (bsCollapse) bsCollapse.hide();
+        // Fallback: create Bootstrap collapse instance if it doesn't exist
+        new bootstrap.Collapse(navbarCollapse).hide();
+      }
+
+      // Ensure hamburger icon state is updated
+      if (navbarToggler) {
+        navbarToggler.classList.add("collapsed");
+        navbarToggler.setAttribute("aria-expanded", "false");
       }
     }
   }
