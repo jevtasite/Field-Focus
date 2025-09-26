@@ -1,42 +1,175 @@
-// ======================= Smooth Scroll =======================
-function smoothScrollTo(targetY, duration = 600) {
-  const startY = window.scrollY;
-  const diff = targetY - startY;
-  let startTime;
+// ======================= Fixed Mobile Smooth Scroll =======================
+document.addEventListener("DOMContentLoaded", () => {
+  const OFFSET = 70;
+  let isScrolling = false;
 
-  function step(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const time = timestamp - startTime;
-    const percent = Math.min(time / duration, 1);
-    window.scrollTo(0, startY + diff * easeInOutQuad(percent));
-    if (time < duration) requestAnimationFrame(step);
+  // Detect mobile for performance optimizations
+  const isMobile =
+    /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) || window.innerWidth <= 768;
+
+  // Optimized smooth scroll function
+  function smoothScrollTo(targetY, duration = isMobile ? 400 : 600) {
+    if (isScrolling) return;
+    isScrolling = true;
+
+    const startY = window.scrollY;
+    const diff = targetY - startY;
+
+    // Skip animation for very small distances
+    if (Math.abs(diff) < 5) {
+      window.scrollTo(0, targetY);
+      isScrolling = false;
+      return;
+    }
+
+    let startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Use appropriate easing
+      const easedProgress = isMobile
+        ? easeOutCubic(progress)
+        : easeInOutQuad(progress);
+
+      window.scrollTo(0, startY + diff * easedProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        isScrolling = false;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // Easing functions
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
   }
 
   function easeInOutQuad(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
   }
 
-  requestAnimationFrame(step);
-}
+  // Main smooth scroll handler - simplified and reliable
+  function addSmoothScroll(links) {
+    links.forEach((link) => {
+      // Remove any existing listeners first
+      const newLink = link.cloneNode(true);
+      link.parentNode.replaceChild(newLink, link);
 
-// Footer smooth scroll
-document.querySelectorAll("footer a[href^='#']").forEach((link) => {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target)
-      smoothScrollTo(target.getBoundingClientRect().top + window.scrollY - 60);
-  });
+      newLink.addEventListener("click", (e) => {
+        const href = newLink.getAttribute("href");
+
+        if (!href || !href.startsWith("#")) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        // Handle back-to-top
+        if (href === "#" || newLink.id === "backToTop") {
+          smoothScrollTo(0);
+          closeNavbar();
+          return;
+        }
+
+        // Find target element
+        const targetEl = document.querySelector(href);
+        if (!targetEl) return;
+
+        // Calculate target position
+        const rect = targetEl.getBoundingClientRect();
+        const targetY = rect.top + window.scrollY - OFFSET;
+
+        smoothScrollTo(targetY);
+        closeNavbar();
+      });
+    });
+  }
+
+  // Fast navbar close for mobile
+  function closeNavbar() {
+    const navbarCollapse = document.querySelector(".navbar-collapse");
+    if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+      if (isMobile) {
+        // Force immediate close on mobile
+        navbarCollapse.classList.remove("show");
+        navbarCollapse.style.height = "0px";
+        setTimeout(() => {
+          navbarCollapse.style.height = "";
+        }, 100);
+      } else {
+        // Use Bootstrap collapse on desktop
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+        if (bsCollapse) bsCollapse.hide();
+      }
+    }
+  }
+
+  // Select all smooth scroll links
+  const smoothLinks = document.querySelectorAll(
+    '#otherDropdown + .dropdown-menu a[href^="#"], ' +
+      'a.nav-link[href^="#"], ' +
+      '.hero-buttons a[href^="#"], ' +
+      'footer a[href^="#"], ' +
+      "#backToTop"
+  );
+
+  // Apply smooth scroll to all links
+  addSmoothScroll(Array.from(smoothLinks));
+
+  // Mobile-specific optimizations
+  if (isMobile) {
+    // Disable iOS bounce during scroll animation
+    document.addEventListener(
+      "touchmove",
+      (e) => {
+        if (isScrolling) {
+          e.preventDefault();
+        }
+      },
+      { passive: false }
+    );
+
+    // Add CSS for better mobile performance
+    const style = document.createElement("style");
+    style.textContent = `
+      .nav-link, .hero-buttons a, footer a, #backToTop {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+    `;
+    document.head.appendChild(style);
+  }
 });
 
-// Back-to-top button
-const backToTop = document.getElementById("backToTop");
-if (backToTop) {
-  backToTop.addEventListener("click", (e) => {
-    e.preventDefault();
-    smoothScrollTo(0);
-  });
-}
+// ======================= Legacy Support =======================
+// Keep your original footer and back-to-top handlers as fallback
+document.addEventListener("DOMContentLoaded", () => {
+  // Fallback for footer links (in case they're added dynamically)
+  setTimeout(() => {
+    document
+      .querySelectorAll("footer a[href^='#']:not([data-smooth-handled])")
+      .forEach((link) => {
+        link.setAttribute("data-smooth-handled", "true");
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const targetY =
+              target.getBoundingClientRect().top + window.scrollY - 60;
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          }
+        });
+      });
+  }, 500);
+});
 
 // ======================= Loader =======================
 function hideLoader(loader, delay = 1000) {
@@ -257,39 +390,6 @@ window.addEventListener("scroll", () => {
   }
 });
 window.addEventListener("load", handleScroll);
-
-// ======================= Smooth Scroll for Specific Links =======================
-document.addEventListener("DOMContentLoaded", () => {
-  const OFFSET = 70;
-
-  // Select dropdown links and hero buttons
-  const smoothLinks = document.querySelectorAll(
-    '#otherDropdown + .dropdown-menu a[href="#work"], ' +
-      '#otherDropdown + .dropdown-menu a[href="#team"], ' +
-      '#otherDropdown + .dropdown-menu a[href="#contact"], ' +
-      '#otherDropdown + .dropdown-menu a[href="#services"], ' +
-      'a.nav-link[href="#contact"], ' +
-      '.hero-buttons a[href="#work"], ' +
-      '.hero-buttons a[href="#contact"]'
-  );
-
-  smoothLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const targetEl = document.querySelector(link.getAttribute("href"));
-      if (!targetEl) return;
-      e.preventDefault();
-
-      smoothScrollTo(
-        targetEl.getBoundingClientRect().top + window.scrollY - OFFSET
-      );
-
-      // Close mobile navbar if open
-      const navbarCollapse = document.querySelector(".navbar-collapse");
-      if (navbarCollapse?.classList.contains("show"))
-        bootstrap.Collapse.getInstance(navbarCollapse).hide();
-    });
-  });
-});
 
 const isMobile =
   /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone/i.test(
