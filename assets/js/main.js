@@ -112,12 +112,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Select all smooth scroll links
+  // Select all smooth scroll links (exclude dropdown toggles)
   const smoothLinks = document.querySelectorAll(
-    '#otherDropdown + .dropdown-menu a[href^="#"], ' +
-      'a.nav-link[href^="#"], ' +
+    '#otherDropdown + .dropdown-menu a[href="#work"], ' +
+      '#otherDropdown + .dropdown-menu a[href="#team"], ' +
+      '#otherDropdown + .dropdown-menu a[href="#contact"], ' +
+      '#otherDropdown + .dropdown-menu a[href="#services"], ' +
+      'a.nav-link[href="#contact"], ' +
       '.hero-buttons a[href^="#"], ' +
-      'footer a[href^="#"], ' +
+      'footer a[href^="#"]:not([data-bs-toggle]), ' +
       "#backToTop"
   );
 
