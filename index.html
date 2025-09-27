@@ -4,7 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Field Focus</title>
+    <meta
+      name="description"
+      content="Field Focus is a creative social media agency specializing in sports content creation, matchday coverage, highlight reels, and athlete marketing. We help clubs and athletes tell their story through stunning visuals and engaging content."
+    />
+    <meta
+      name="keywords"
+      content="sports marketing agency, social media sports content, matchday coverage, highlight reels, sports graphics design, athlete marketing, football club social media, sports video production"
+    />
+    <meta name="author" content="Field Focus Agency" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fieldfocus.agency/" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Field Focus - Sports Social Media Agency"
+    />
+    <meta
+      property="og:description"
+      content="Creative social media agency helping clubs & athletes tell their story through matchday coverage, highlight reels, and professional sports content creation."
+    />
+    <meta
+      property="og:image"
+      content="https://fieldfocus.agency/assets/img/ff-logo.png"
+    />
+    <meta property="og:url" content="https://fieldfocus.agency/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Field Focus Agency" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Field Focus - Sports Social Media Agency"
+    />
+    <meta
+      name="twitter:description"
+      content="Creative social media agency helping clubs & athletes tell their story through professional sports content."
+    />
+    <meta
+      name="twitter:image"
+      content="https://fieldfocus.agency/assets/img/ff-logo.png"
+    />
+
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload critical CSS -->
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      as="style"
+    />
+    <link rel="preload" href="assets/css/style.css" as="style" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -22,6 +80,79 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Field Focus Agency",
+        "url": "https://fieldfocus.agency",
+        "logo": "https://fieldfocus.agency/assets/img/ff-logo.png",
+        "description": "Creative social media agency specializing in sports content creation, matchday coverage, highlight reels, and athlete marketing for clubs and individual athletes.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Gračanica",
+          "addressRegion": "Pristina",
+          "addressCountry": "XK"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "infofieldfocus@gmail.com",
+          "contactType": "customer service"
+        },
+        "sameAs": [
+          "https://www.instagram.com/fieldfocusocial/",
+          "https://www.youtube.com/@fieldfocusocial",
+          "https://www.behance.net/fieldfocus"
+        ],
+        "founder": [
+          {
+            "@type": "Person",
+            "name": "Dušan Živković"
+          },
+          {
+            "@type": "Person",
+            "name": "Mihailo Milčić"
+          }
+        ],
+        "foundingDate": "2023",
+        "serviceArea": {
+          "@type": "Place",
+          "name": "Worldwide"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Sports Marketing Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Matchday Coverage",
+                "description": "Live graphics, instant updates, and engaging visuals during matches"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Highlight Reels",
+                "description": "Professional video edits that capture the emotion and excitement of the game"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Social Media Management",
+                "description": "Consistent branding, engaging posts, and audience growth across all platforms"
+              }
+            }
+          ]
+        }
+      }
+    </script>
   </head>
   <body>
     <!-- Loader -->
@@ -30,10 +161,23 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav
+      class="navbar navbar-expand-lg fixed-top"
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div class="container">
-        <a class="navbar-brand" href="https://fieldfocus.agency/">
-          <img src="assets/img/ff-logo.png" alt="Field Focus" height="30" />
+        <a
+          class="navbar-brand"
+          href="https://fieldfocus.agency/"
+          title="Field Focus - Sports Social Media Agency"
+        >
+          <img
+            src="assets/img/ff-logo.png"
+            alt="Field Focus Agency Logo"
+            height="30"
+            width="auto"
+          />
         </a>
         <button
           class="navbar-toggler"
@@ -42,7 +186,7 @@
           data-bs-target="#navbarNav"
           aria-controls="navbarNav"
           aria-expanded="false"
-          aria-label="Toggle navigation"
+          aria-label="Toggle navigation menu"
         >
           <span></span>
           <span></span>
@@ -55,13 +199,28 @@
         >
           <ul class="navbar-nav me-4">
             <li class="nav-item">
-              <a class="nav-link" href="https://fieldfocus.agency/">Home</a>
+              <a
+                class="nav-link"
+                href="https://fieldfocus.agency/"
+                title="Field Focus Home Page"
+                >Home</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="graphics/">Graphics</a>
+              <a
+                class="nav-link"
+                href="graphics/"
+                title="Sports Graphics Design Portfolio"
+                >Graphics</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="videos/">Videos</a>
+              <a
+                class="nav-link"
+                href="videos/"
+                title="Sports Video Production Portfolio"
+                >Videos</a
+              >
             </li>
             <li class="nav-item dropdown">
               <a
@@ -71,14 +230,43 @@
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                title="Other pages and sections"
               >
                 Other
               </a>
               <ul class="dropdown-menu" aria-labelledby="otherDropdown">
-                <li><a class="dropdown-item" href="#services">Services</a></li>
-                <li><a class="dropdown-item" href="#work">Work</a></li>
-                <li><a class="dropdown-item" href="#team">Team</a></li>
-                <li><a class="dropdown-item" href="#contact">Contact</a></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#services"
+                    title="Our Sports Marketing Services"
+                    >Services</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#work"
+                    title="View Our Sports Content Portfolio"
+                    >Work</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#team"
+                    title="Meet the Field Focus Team"
+                    >Team</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#contact"
+                    title="Contact Field Focus Agency"
+                    >Contact</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -89,17 +277,50 @@
     <!-- Hero -->
     <header
       class="hero d-flex align-items-center justify-content-center text-center"
+      role="banner"
     >
       <!-- Marquee background -->
-      <div class="hero-marquee" id="heroMarquee">
-        <img src="assets/img/showcase-1.jpg" alt="" />
-        <img src="assets/img/showcase-2.jpg" alt="" />
-        <img src="assets/img/showcase-3.jpg" alt="" />
-        <img src="assets/img/showcase-4.jpg" alt="" />
-        <img src="assets/img/showcase-5.jpg" alt="" />
-        <img src="assets/img/showcase-6.jpg" alt="" />
-        <img src="assets/img/showcase-7.jpg" alt="" />
-        <img src="assets/img/showcase-8.jpg" alt="" />
+      <div class="hero-marquee" id="heroMarquee" aria-hidden="true">
+        <img
+          src="assets/img/showcase-1.jpg"
+          alt="Field Focus sports graphics showcase example"
+          loading="lazy"
+        />
+        <img
+          src="assets/img/showcase-2.jpg"
+          alt="Field Focus matchday coverage design"
+          loading="lazy"
+        />
+        <img
+          src="assets/img/showcase-3.jpg"
+          alt="Field Focus social media sports content"
+          loading="lazy"
+        />
+        <img
+          src="assets/img/showcase-4.jpg"
+          alt="Field Focus football club graphics"
+          loading="lazy"
+        />
+        <img
+          src="assets/img/showcase-5.jpg"
+          alt="Field Focus athlete marketing design"
+          loading="lazy"
+        />
+        <img
+          src="assets/img/showcase-6.jpg"
+          alt="Field Focus sports poster design"
+          loading="lazy"
+        />
+        <img
+          src="assets/img/showcase-7.jpg"
+          alt="Field Focus team graphics"
+          loading="lazy"
+        />
+        <img
+          src="assets/img/showcase-8.jpg"
+          alt="Field Focus sports branding example"
+          loading="lazy"
+        />
       </div>
 
       <!-- Hero content -->
@@ -114,19 +335,44 @@
 
         <!-- Buttons -->
         <div class="mt-4 hero-buttons">
-          <a href="#work" class="btn btn-primary me-3">See Our Work</a>
-          <a href="#contact" class="btn btn-outline-light">Contact Us</a>
+          <a
+            href="#work"
+            class="btn btn-primary me-3"
+            title="View our sports content portfolio"
+            >See Our Work</a
+          >
+          <a
+            href="#contact"
+            class="btn btn-outline-light"
+            title="Contact Field Focus for sports marketing services"
+            >Contact Us</a
+          >
         </div>
 
         <!-- Social icons -->
         <div class="hero-socials mt-4">
-          <a href="https://www.instagram.com/fieldfocusocial/" target="_blank"
+          <a
+            href="https://www.instagram.com/fieldfocusocial/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Follow Field Focus on Instagram"
+            aria-label="Field Focus Instagram"
             ><i class="fab fa-instagram"></i
           ></a>
-          <a href="https://www.youtube.com/@fieldfocusocial" target="_blank"
+          <a
+            href="https://www.youtube.com/@fieldfocusocial"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Subscribe to Field Focus YouTube channel"
+            aria-label="Field Focus YouTube"
             ><i class="fab fa-youtube"></i
           ></a>
-          <a href="https://www.behance.net/fieldfocus" target="_blank"
+          <a
+            href="https://www.behance.net/fieldfocus"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="View Field Focus portfolio on Behance"
+            aria-label="Field Focus Behance"
             ><i class="fab fa-behance"></i
           ></a>
         </div>
@@ -148,7 +394,7 @@
           matchday coverage, highlights, and scouting features.
         </p>
         <blockquote class="fs-4 fst-italic mb-4 text-silver animate">
-          “We bring the passion to the field, and the focus to your story.”
+          "We bring the passion to the field, and the focus to your story."
         </blockquote>
 
         <div class="extra-content" id="aboutExtra">
@@ -167,7 +413,14 @@
           </p>
         </div>
 
-        <button id="readMoreBtn" class="btn btn-white mt-3">Read More</button>
+        <button
+          id="readMoreBtn"
+          class="btn btn-white mt-3"
+          aria-expanded="false"
+          aria-controls="aboutExtra"
+        >
+          Read More
+        </button>
       </div>
     </section>
 
@@ -179,8 +432,11 @@
           <!-- Service 1 -->
           <div class="col-12 col-sm-6 col-md-4">
             <div class="card p-4">
-              <i class="bi bi-calendar-event display-4 mb-3"></i>
-              <h5 class="fw-bold">Matchday Coverage</h5>
+              <i
+                class="bi bi-calendar-event display-4 mb-3"
+                aria-hidden="true"
+              ></i>
+              <h3 class="fw-bold">Matchday Coverage</h3>
               <p>
                 Live graphics, instant updates, and engaging visuals during
                 matches.
@@ -190,8 +446,11 @@
           <!-- Service 2 -->
           <div class="col-12 col-sm-6 col-md-4">
             <div class="card p-4">
-              <i class="bi bi-camera-reels display-4 mb-3"></i>
-              <h5 class="fw-bold">Highlight Reels</h5>
+              <i
+                class="bi bi-camera-reels display-4 mb-3"
+                aria-hidden="true"
+              ></i>
+              <h3 class="fw-bold">Highlight Reels</h3>
               <p>
                 Professional edits that capture the emotion and excitement of
                 the game.
@@ -201,8 +460,8 @@
           <!-- Service 3 -->
           <div class="col-12 col-sm-6 col-md-4">
             <div class="card p-4">
-              <i class="bi bi-binoculars display-4 mb-3"></i>
-              <h5 class="fw-bold">Scouting Features</h5>
+              <i class="bi bi-binoculars display-4 mb-3" aria-hidden="true"></i>
+              <h3 class="fw-bold">Scouting Features</h3>
               <p>
                 Detailed player profiles and showcase packages for future stars.
               </p>
@@ -211,8 +470,8 @@
           <!-- Service 4 -->
           <div class="col-12 col-sm-6 col-md-4">
             <div class="card p-4">
-              <i class="bi bi-share display-4 mb-3"></i>
-              <h5 class="fw-bold">Social Media Management</h5>
+              <i class="bi bi-share display-4 mb-3" aria-hidden="true"></i>
+              <h3 class="fw-bold">Social Media Management</h3>
               <p>
                 Consistent branding, engaging posts, and audience growth across
                 all platforms.
@@ -222,8 +481,8 @@
           <!-- Service 5 -->
           <div class="col-12 col-sm-6 col-md-4">
             <div class="card p-4">
-              <i class="bi bi-code-slash display-4 mb-3"></i>
-              <h5 class="fw-bold">Website Development</h5>
+              <i class="bi bi-code-slash display-4 mb-3" aria-hidden="true"></i>
+              <h3 class="fw-bold">Website Development</h3>
               <p>
                 Custom websites designed for performance, user experience, and
                 modern design.
@@ -233,23 +492,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Design Marquee -->
-    <!--  <section class="marquee-section py-5">
-      <div class="marquee">
-        <div class="marquee-content">
-          <img src="assets/img/showcase-1.png" alt="Design 1" />
-          <img src="assets/img/showcase-1.png" alt="Design 2" />
-          <img src="assets/img/showcase-1.png" alt="Design 3" />
-          <img src="assets/img/showcase-1.png" alt="Design 4" /> -->
-    <!-- duplicate images for seamless scrolling 
-          <img src="assets/img/showcase-1.png" alt="Design 1" />
-          <img src="assets/img/showcase-1.png" alt="Design 2" />
-          <img src="assets/img/showcase-1.png" alt="Design 3" />
-          <img src="assets/img/showcase-1.png" alt="Design 4" />
-        </div>
-      </div>
-    </section> -->
 
     <!-- Work Showcase -->
     <section
@@ -263,30 +505,61 @@
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="assets/img/showcase-1.jpg" alt="Work 1" />
+              <img
+                src="assets/img/showcase-1.jpg"
+                alt="Field Focus sports graphics design portfolio example 1"
+                loading="lazy"
+              />
             </div>
             <div class="swiper-slide">
-              <img src="assets/img/showcase-2.jpg" alt="Work 2" />
+              <img
+                src="assets/img/showcase-2.jpg"
+                alt="Field Focus matchday coverage graphics example 2"
+                loading="lazy"
+              />
             </div>
             <div class="swiper-slide">
-              <img src="assets/img/showcase-3.jpg" alt="Work 3" />
+              <img
+                src="assets/img/showcase-3.jpg"
+                alt="Field Focus social media sports content example 3"
+                loading="lazy"
+              />
             </div>
             <div class="swiper-slide">
-              <img src="assets/img/showcase-4.jpg" alt="Work 4" />
+              <img
+                src="assets/img/showcase-4.jpg"
+                alt="Field Focus football club branding example 4"
+                loading="lazy"
+              />
             </div>
             <div class="swiper-slide">
-              <img src="assets/img/showcase-5.jpg" alt="Work 4" />
+              <img
+                src="assets/img/showcase-5.jpg"
+                alt="Field Focus athlete marketing design example 5"
+                loading="lazy"
+              />
             </div>
             <div class="swiper-slide">
-              <img src="assets/img/showcase-6.jpg" alt="Work 4" />
+              <img
+                src="assets/img/showcase-6.jpg"
+                alt="Field Focus sports poster design example 6"
+                loading="lazy"
+              />
             </div>
             <div class="swiper-slide">
-              <img src="assets/img/showcase-7.jpg" alt="Work 4" />
+              <img
+                src="assets/img/showcase-7.jpg"
+                alt="Field Focus team graphics design example 7"
+                loading="lazy"
+              />
             </div>
             <div class="swiper-slide">
-              <img src="assets/img/showcase-8.jpg" alt="Work 4" />
+              <img
+                src="assets/img/showcase-8.jpg"
+                alt="Field Focus sports content creation example 8"
+                loading="lazy"
+              />
             </div>
-            <!-- Add more slides as needed -->
           </div>
 
           <!-- See More Button -->
@@ -295,14 +568,21 @@
               href="graphics/"
               id="seeMoreBtn"
               class="btn btn-white btn-lg d-none"
+              title="View complete sports graphics portfolio"
             >
               See More
             </a>
           </div>
 
           <!-- Navigation Arrows -->
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
+          <div
+            class="swiper-button-next"
+            aria-label="Next portfolio item"
+          ></div>
+          <div
+            class="swiper-button-prev"
+            aria-label="Previous portfolio item"
+          ></div>
         </div>
       </div>
     </section>
@@ -314,7 +594,7 @@
       style="background-color: #121212; color: #fff; overflow: hidden"
     >
       <!-- Diagonal line pattern overlay -->
-      <div class="pattern-overlay"></div>
+      <div class="pattern-overlay" aria-hidden="true"></div>
 
       <div class="container text-center position-relative" style="z-index: 1">
         <h2 class="fw-bold mb-4">Highlight Every Moment</h2>
@@ -337,10 +617,11 @@
             width="100%"
             height="500"
             src="https://www.youtube.com/embed/O-yogAMpySU?rel=0&modestbranding=1"
-            title="Highlight Video"
+            title="Field Focus Sports Highlight Video - Professional Football Content Creation"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
+            loading="lazy"
           >
           </iframe>
         </div>
@@ -359,9 +640,11 @@
                 src="assets/img/dusan.png"
                 class="rounded-circle mb-3"
                 width="120"
-                alt="John Doe"
+                height="120"
+                alt="Dušan Živković, Co-Founder of Field Focus sports marketing agency"
+                loading="lazy"
               />
-              <h5 class="fw-bold">Dušan Živković</h5>
+              <h3 class="fw-bold">Dušan Živković</h3>
               <p class="text-muted">Co-Founder</p>
               <p>
                 I strive to make sure every client is satisfied with our
@@ -369,7 +652,12 @@
               </p>
               <!-- Social icons -->
               <div class="team-socials mt-3">
-                <a href="https://www.instagram.com/dusan.grphx" target="_blank"
+                <a
+                  href="https://www.instagram.com/dusan.grphx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Follow Dušan on Instagram"
+                  aria-label="Dušan's Instagram"
                   ><i class="fab fa-instagram"></i
                 ></a>
               </div>
@@ -383,17 +671,24 @@
                 src="assets/img/mihailo.png"
                 class="rounded-circle mb-3"
                 width="120"
-                alt="Jane Smith"
+                height="120"
+                alt="Mihailo Milčić, Co-Founder of Field Focus sports marketing agency"
+                loading="lazy"
               />
-              <h5 class="fw-bold">Mihailo Milčić</h5>
+              <h3 class="fw-bold">Mihailo Milčić</h3>
               <p class="text-muted">Co-Founder</p>
               <p>
-                I’m committed to helping our agency grow and reach new heights
+                I'm committed to helping our agency grow and reach new heights
                 with each project we take on!
               </p>
               <!-- Social icons -->
               <div class="team-socials mt-3">
-                <a href="https://www.instagram.com/mmd_esignn/" target="_blank"
+                <a
+                  href="https://www.instagram.com/mmd_esignn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Follow Mihailo on Instagram"
+                  aria-label="Mihailo's Instagram"
                   ><i class="fab fa-instagram"></i
                 ></a>
               </div>
@@ -418,6 +713,7 @@
             id="email-link"
             href="mailto:infofieldfocus@gmail.com"
             class="text-white text-decoration-none"
+            title="Email Field Focus Agency"
           >
             infofieldfocus@gmail.com
           </a>
@@ -428,21 +724,30 @@
           <a
             href="https://www.instagram.com/fieldfocusocial/"
             target="_blank"
+            rel="noopener noreferrer"
             class="text-white fs-4"
+            title="Follow Field Focus on Instagram"
+            aria-label="Field Focus Instagram"
           >
             <i class="fab fa-instagram"></i>
           </a>
           <a
             href="https://www.youtube.com/@fieldfocusocial"
             target="_blank"
+            rel="noopener noreferrer"
             class="text-white fs-4"
+            title="Subscribe to Field Focus YouTube"
+            aria-label="Field Focus YouTube"
           >
             <i class="fab fa-youtube"></i>
           </a>
           <a
             href="https://www.behance.net/fieldfocus"
             target="_blank"
+            rel="noopener noreferrer"
             class="text-white fs-4"
+            title="View Field Focus portfolio on Behance"
+            aria-label="Field Focus Behance"
           >
             <i class="fab fa-behance"></i>
           </a>
@@ -451,28 +756,51 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer py-1 text-center">
+    <footer class="footer py-1 text-center" role="contentinfo">
       <div class="container">
         <p class="mb-1">&copy; 2025 Field Focus Agency. All Rights Reserved.</p>
         <div class="d-flex justify-content-center gap-3 mb-2">
-          <a href="https://fieldfocus.agency/" class="footer-link">Home</a>
-          <a href="#about" class="footer-link">About</a>
-          <a href="graphics/" class="footer-link">Graphics</a>
-          <a href="videos/" class="footer-link">Videos</a>
+          <a
+            href="https://fieldfocus.agency/"
+            class="footer-link"
+            title="Field Focus Home"
+            >Home</a
+          >
+          <a href="#about" class="footer-link" title="About Field Focus Agency"
+            >About</a
+          >
+          <a
+            href="graphics/"
+            class="footer-link"
+            title="Sports Graphics Portfolio"
+            >Graphics</a
+          >
+          <a href="videos/" class="footer-link" title="Sports Video Portfolio"
+            >Videos</a
+          >
         </div>
         <p class="dev-note">
           Developed by
           <a
             href="https://jevtasite.github.io/JevtaWebsite/"
             target="_blank"
+            rel="noopener noreferrer"
             class="dev-link shine-text"
+            title="Website developer Jevta"
             >Jevta</a
           >
         </p>
       </div>
     </footer>
 
-    <a href="#" id="backToTop" class="back-to-top">&#8593;</a>
+    <a
+      href="#"
+      id="backToTop"
+      class="back-to-top"
+      title="Back to top"
+      aria-label="Back to top"
+      >&#8593;</a
+    >
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Font Awesome -->

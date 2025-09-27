@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block unnecessary files from crawling
+Disallow: /assets/js/
+Disallow: /assets/css/
+
+# Allow important directories
+Allow: /assets/img/
+Allow: /graphics/
+Allow: /videos/
+
+# Sitemap location
+Sitemap: https://fieldfocus.agency/sitemap.xml
+
+# Crawl delay to be respectful to servers
+Crawl-delay: 1
