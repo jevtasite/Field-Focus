@@ -145,9 +145,16 @@
 
     <!-- Load Google Fonts -->
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
   </head>
   <body class="graphics-page">
     <!-- Loader -->
@@ -241,22 +248,44 @@
       </div>
 
       <!-- Hero Swiper -->
+      <!-- Hero Swiper -->
       <div class="hero-swiper mySwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="/assets/img/scase-1.webp" alt="Graphic 1" />
+            <img
+              src="/assets/img/scase-1.webp"
+              alt="Graphic 1"
+              fetchpriority="high"
+              decoding="async"
+            />
           </div>
           <div class="swiper-slide">
-            <img src="/assets/img/scase-2.webp" alt="Graphic 2" />
+            <img
+              src="/assets/img/scase-2.webp"
+              alt="Graphic 2"
+              decoding="async"
+            />
           </div>
           <div class="swiper-slide">
-            <img src="/assets/img/scase-3.webp" alt="Graphic 3" />
+            <img
+              src="/assets/img/scase-3.webp"
+              alt="Graphic 3"
+              decoding="async"
+            />
           </div>
           <div class="swiper-slide">
-            <img src="/assets/img/scase-4.webp" alt="Graphic 4" />
+            <img
+              src="/assets/img/scase-4.webp"
+              alt="Graphic 4"
+              decoding="async"
+            />
           </div>
           <div class="swiper-slide">
-            <img src="/assets/img/scase-5.webp" alt="Graphic 4" />
+            <img
+              src="/assets/img/scase-5.webp"
+              alt="Graphic 4"
+              decoding="async"
+            />
           </div>
         </div>
         <div class="swiper-button-next"></div>
@@ -586,12 +615,19 @@
 
     <a href="#" id="backToTop" class="back-to-top">&#8593;</a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <script
+      defer
       src="https://kit.fontawesome.com/4cb2a0ed9c.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="/assets/js/graphics.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"
+    ></script>
+    <script defer src="/assets/js/graphics.js"></script>
   </body>
 </html>
