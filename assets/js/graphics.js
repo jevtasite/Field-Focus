@@ -44,50 +44,41 @@
   }
 })();
 
-// ======================= On-page smooth scroll + Back-to-top =======================
+// ======================= Smooth Scroll =======================
 document.addEventListener("DOMContentLoaded", () => {
   if (!document.body.classList.contains("graphics-page")) return;
 
-  const OFFSET = 80; // navbar height
+  const OFFSET = 80;
 
-  function smoothScrollTo(targetY, duration = 600) {
-    const startY = window.scrollY;
-    const diff = targetY - startY;
-    let startTime;
+  // Enable native smooth scroll
+  document.documentElement.style.scrollBehavior = "smooth";
 
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const time = timestamp - startTime;
-      const percent = Math.min(time / duration, 1);
-      const eased =
-        percent < 0.5
-          ? 2 * percent * percent
-          : -1 + (4 - 2 * percent) * percent;
-      window.scrollTo(0, startY + diff * eased);
-      if (time < duration) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  // Smooth scroll for in-page anchors
+  // Handle all anchor links
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (e) => {
-      const target = document.querySelector(link.getAttribute("href"));
+      const href = link.getAttribute("href");
+
+      if (href === "#") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      const target = document.querySelector(href);
       if (!target) return;
+
       e.preventDefault();
-      const targetY =
-        target.getBoundingClientRect().top + window.scrollY - OFFSET;
-      smoothScrollTo(targetY);
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - OFFSET;
+      window.scrollTo({ top: targetPosition, behavior: "smooth" });
     });
   });
 
-  // Smooth scroll for back-to-top
+  // Back to top button
   const backToTop = document.getElementById("backToTop");
   if (backToTop) {
     backToTop.addEventListener("click", (e) => {
       e.preventDefault();
-      smoothScrollTo(0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     window.addEventListener("scroll", () => {

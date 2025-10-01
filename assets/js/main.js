@@ -1,181 +1,61 @@
-// ======================= Fixed Mobile Smooth Scroll =======================
+// ======================= Smooth Scroll =======================
 document.addEventListener("DOMContentLoaded", () => {
   const OFFSET = 70;
-  let isScrolling = false;
 
-  // Detect mobile for performance optimizations
-  const isMobile =
-    /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ) || window.innerWidth <= 768;
+  // Simple, instant smooth scroll using native CSS
+  document.documentElement.style.scrollBehavior = "smooth";
 
-  // Optimized smooth scroll function
-  function smoothScrollTo(targetY, duration = isMobile ? 400 : 600) {
-    if (isScrolling) return;
-    isScrolling = true;
+  // Handle all anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
 
-    const startY = window.scrollY;
-    const diff = targetY - startY;
-
-    // Skip animation for very small distances
-    if (Math.abs(diff) < 5) {
-      window.scrollTo(0, targetY);
-      isScrolling = false;
-      return;
-    }
-
-    let startTime = null;
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Use appropriate easing
-      const easedProgress = isMobile
-        ? easeOutCubic(progress)
-        : easeInOutQuad(progress);
-
-      window.scrollTo(0, startY + diff * easedProgress);
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        isScrolling = false;
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  // Easing functions
-  function easeOutCubic(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function easeInOutQuad(t) {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  }
-
-  // Main smooth scroll handler - simplified and reliable
-  function addSmoothScroll(links) {
-    links.forEach((link) => {
-      // Remove any existing listeners first
-      const newLink = link.cloneNode(true);
-      link.parentNode.replaceChild(newLink, link);
-
-      newLink.addEventListener("click", (e) => {
-        const href = newLink.getAttribute("href");
-
-        if (!href || !href.startsWith("#")) return;
-
+      // Skip if href is just "#" (back to top)
+      if (href === "#") {
         e.preventDefault();
-        e.stopImmediatePropagation();
-
-        // Handle back-to-top
-        if (href === "#" || newLink.id === "backToTop") {
-          smoothScrollTo(0);
-          closeNavbar();
-          return;
-        }
-
-        // Find target element
-        const targetEl = document.querySelector(href);
-        if (!targetEl) return;
-
-        // Calculate target position
-        const rect = targetEl.getBoundingClientRect();
-        const targetY = rect.top + window.scrollY - OFFSET;
-
-        smoothScrollTo(targetY);
+        window.scrollTo({ top: 0, behavior: "smooth" });
         closeNavbar();
-      });
+        return;
+      }
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - OFFSET;
+      window.scrollTo({ top: targetPosition, behavior: "smooth" });
+      closeNavbar();
+    });
+  });
+
+  // Back to top button
+  const backToTop = document.getElementById("backToTop");
+  if (backToTop) {
+    backToTop.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
 
-  // Proper navbar close that preserves hamburger animation
+  // Close navbar after clicking link
   function closeNavbar() {
     const navbarCollapse = document.querySelector(".navbar-collapse");
     const navbarToggler = document.querySelector(".navbar-toggler");
 
     if (navbarCollapse && navbarCollapse.classList.contains("show")) {
-      // Always use Bootstrap's proper method to maintain state
       const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
       if (bsCollapse) {
         bsCollapse.hide();
       } else {
-        // Fallback: create Bootstrap collapse instance if it doesn't exist
         new bootstrap.Collapse(navbarCollapse).hide();
       }
 
-      // Ensure hamburger icon state is updated
       if (navbarToggler) {
         navbarToggler.classList.add("collapsed");
         navbarToggler.setAttribute("aria-expanded", "false");
       }
     }
   }
-
-  // Select all smooth scroll links (exclude dropdown toggles)
-  const smoothLinks = document.querySelectorAll(
-    '#otherDropdown + .dropdown-menu a[href="#work"], ' +
-      '#otherDropdown + .dropdown-menu a[href="#team"], ' +
-      '#otherDropdown + .dropdown-menu a[href="#contact"], ' +
-      '#otherDropdown + .dropdown-menu a[href="#services"], ' +
-      'a.nav-link[href="#contact"], ' +
-      '.hero-buttons a[href^="#"], ' +
-      'footer a[href^="#"]:not([data-bs-toggle]), ' +
-      "#backToTop"
-  );
-
-  // Apply smooth scroll to all links
-  addSmoothScroll(Array.from(smoothLinks));
-
-  // Mobile-specific optimizations
-  if (isMobile) {
-    // Disable iOS bounce during scroll animation
-    document.addEventListener(
-      "touchmove",
-      (e) => {
-        if (isScrolling) {
-          e.preventDefault();
-        }
-      },
-      { passive: false }
-    );
-
-    // Add CSS for better mobile performance
-    const style = document.createElement("style");
-    style.textContent = `
-      .nav-link, .hero-buttons a, footer a, #backToTop {
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-});
-
-// ======================= Legacy Support =======================
-// Keep your original footer and back-to-top handlers as fallback
-document.addEventListener("DOMContentLoaded", () => {
-  // Fallback for footer links (in case they're added dynamically)
-  setTimeout(() => {
-    document
-      .querySelectorAll("footer a[href^='#']:not([data-smooth-handled])")
-      .forEach((link) => {
-        link.setAttribute("data-smooth-handled", "true");
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            const targetY =
-              target.getBoundingClientRect().top + window.scrollY - 60;
-            window.scrollTo({ top: targetY, behavior: "smooth" });
-          }
-        });
-      });
-  }, 500);
 });
 
 // ======================= Loader =======================

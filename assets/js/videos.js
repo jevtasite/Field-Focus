@@ -35,44 +35,47 @@
   }
 })();
 
-// ======================= Back-to-top =======================
+// ======================= Smooth Scroll =======================
 document.addEventListener("DOMContentLoaded", () => {
-  // Only run on videos page
   if (!document.body.classList.contains("videos-page")) return;
 
+  const OFFSET = 80;
+
+  // Enable native smooth scroll
+  document.documentElement.style.scrollBehavior = "smooth";
+
+  // Handle all anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+
+      if (href === "#") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - OFFSET;
+      window.scrollTo({ top: targetPosition, behavior: "smooth" });
+    });
+  });
+
+  // Back to top button
   const backToTop = document.getElementById("backToTop");
-  if (!backToTop) return;
+  if (backToTop) {
+    backToTop.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
-  // Show/hide button on scroll
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 300);
-  });
-
-  // Smooth scroll to top
-  function smoothScrollTo(targetY, duration = 600) {
-    const startY = window.scrollY;
-    const diff = targetY - startY;
-    let startTime;
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const time = timestamp - startTime;
-      const percent = Math.min(time / duration, 1);
-      const eased =
-        percent < 0.5
-          ? 2 * percent * percent
-          : -1 + (4 - 2 * percent) * percent;
-      window.scrollTo(0, startY + diff * eased);
-      if (time < duration) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 300);
+    });
   }
-
-  backToTop.addEventListener("click", (e) => {
-    e.preventDefault();
-    smoothScrollTo(0);
-  });
 });
 
 // ======================= Hero Swiper =======================
@@ -235,58 +238,6 @@ function animateStats() {
 window.addEventListener("scroll", animateStats);
 window.addEventListener("load", animateStats);
 
-// ======================= On-page smooth scroll =======================
-document.addEventListener("DOMContentLoaded", () => {
-  // Only run on videos page
-  if (!document.body.classList.contains("videos-page")) return;
-
-  const OFFSET = 80; // height of your navbar
-
-  function smoothScrollTo(targetY, duration = 600) {
-    const startY = window.scrollY;
-    const diff = targetY - startY;
-    let startTime;
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const time = timestamp - startTime;
-      const percent = Math.min(time / duration, 1);
-      const eased =
-        percent < 0.5
-          ? 2 * percent * percent
-          : -1 + (4 - 2 * percent) * percent;
-      window.scrollTo(0, startY + diff * eased);
-      if (time < duration) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  // All page anchors
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const target = document.querySelector(link.getAttribute("href"));
-      if (!target) return;
-      e.preventDefault();
-      const targetY =
-        target.getBoundingClientRect().top + window.scrollY - OFFSET;
-      smoothScrollTo(targetY);
-    });
-  });
-
-  // Back-to-top button
-  const backToTop = document.getElementById("backToTop");
-  if (backToTop) {
-    backToTop.addEventListener("click", (e) => {
-      e.preventDefault();
-      smoothScrollTo(0);
-    });
-
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 300);
-    });
-  }
-});
 
 // ======================= CTA Get In Touch Button =======================
 (() => {
