@@ -49,6 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");
 
+      // Skip dropdown toggles
+      if (link.hasAttribute("data-bs-toggle")) return;
+
       if (href === "#") {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });

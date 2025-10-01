@@ -10,7 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");
 
-      // Skip if href is just "#" (back to top)
+      // Skip dropdown toggles (they have data-bs-toggle attribute)
+      if (link.hasAttribute("data-bs-toggle")) return;
+
+      // Skip if it's a dropdown toggle with just "#"
+      if (href === "#" && (link.classList.contains("dropdown-toggle") || link.id === "otherDropdown")) {
+        return;
+      }
+
+      // Handle back to top
       if (href === "#") {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
