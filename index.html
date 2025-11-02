@@ -201,7 +201,7 @@
         rel="stylesheet"
     /></noscript>
 
-    <!-- Structured Data JSON-LD -->
+    <!-- Structured Data JSON-LD - Organization -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -273,6 +273,69 @@
         }
       }
     </script>
+
+    <!-- LocalBusiness Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://fieldfocus.agency/#localbusiness",
+        "name": "Field Focus Agency",
+        "image": "https://fieldfocus.agency/assets/img/ff-logo.png",
+        "url": "https://fieldfocus.agency",
+        "telephone": "",
+        "email": "infofieldfocus@gmail.com",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "",
+          "addressLocality": "Graçanica",
+          "addressRegion": "Pristina",
+          "postalCode": "",
+          "addressCountry": "XK"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 42.5983,
+          "longitude": 21.1947
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "sameAs": [
+          "https://www.instagram.com/fieldfocusocial/",
+          "https://www.youtube.com/@fieldfocusocial",
+          "https://www.behance.net/fieldfocus"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "3"
+        }
+      }
+    </script>
+
+    <!-- WebSite Schema for Search -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Field Focus Agency",
+        "url": "https://fieldfocus.agency",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://fieldfocus.agency/?s={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+
     <meta
       name="google-site-verification"
       content="QEaClMeqDNIu440PoVxKKOr-OaV-t7MDYfLzqiC0CsY"
