@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -150,25 +150,37 @@
       rel="preload"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <link
       rel="preload"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <link
       rel="preload"
       href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <link
       rel="preload"
       href="assets/css/style.css"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
 
     <!-- Fallback for browsers without JavaScript -->
@@ -193,7 +205,10 @@
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <noscript
       ><link
@@ -342,13 +357,18 @@
     />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9LW3GK9WZQ"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LW3GK9WZQ"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-9LW3GK9WZQ');
+      gtag("config", "G-9LW3GK9WZQ");
     </script>
   </head>
   <body>
@@ -814,7 +834,14 @@
             src="https://www.youtube.com/embed/mJfqcUXfi0E?rel=0&modestbranding=1"
             title="Field Focus Sports Highlight Video - Professional Football Content Creation"
             frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+            "
             allowfullscreen
             loading="lazy"
           ></iframe>
@@ -952,7 +979,7 @@
     <!-- Footer -->
     <footer class="footer py-1 text-center" role="contentinfo">
       <div class="container">
-        <p class="mb-1">&copy; 2025 Field Focus Agency. All Rights Reserved.</p>
+        <p class="mb-1">&copy; 2026 Field Focus Agency. All Rights Reserved.</p>
         <div class="d-flex justify-content-center gap-3 mb-2">
           <a href="/" class="footer-link" title="Field Focus Home">Home</a>
           <a href="#about" class="footer-link" title="About Field Focus Agency"
