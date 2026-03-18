@@ -5,12 +5,12 @@
 
   <!-- Homepage - Sports Marketing Agency -->
   <url>
-    <loc>https://fieldfocus.agency/</loc>
+    <loc>https://field-focus.agency/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://fieldfocus.agency/assets/img/ff-logo.png</image:loc>
+      <image:loc>https://field-focus.agency/assets/img/ff-logo.png</image:loc>
       <image:title>Field Focus Agency Logo</image:title>
       <image:caption>Sports social media marketing agency specializing in content creation</image:caption>
     </image:image>
@@ -18,22 +18,22 @@
 
   <!-- Graphics Portfolio Page -->
   <url>
-    <loc>https://fieldfocus.agency/graphics/</loc>
+    <loc>https://field-focus.agency/graphics/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://fieldfocus.agency/assets/img/showcase-1.webp</image:loc>
+      <image:loc>https://field-focus.agency/assets/img/showcase-1.webp</image:loc>
       <image:title>Sports Graphics Design Portfolio</image:title>
       <image:caption>Professional matchday graphics and social media sports content design</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://fieldfocus.agency/assets/img/showcase-2.webp</image:loc>
+      <image:loc>https://field-focus.agency/assets/img/showcase-2.webp</image:loc>
       <image:title>Match Announcement Graphics</image:title>
       <image:caption>Custom sports graphics for football clubs and teams</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://fieldfocus.agency/assets/img/showcase-3.webp</image:loc>
+      <image:loc>https://field-focus.agency/assets/img/showcase-3.webp</image:loc>
       <image:title>Matchday Coverage Graphics</image:title>
       <image:caption>Dynamic visual content for live sports events</image:caption>
     </image:image>
@@ -41,7 +41,7 @@
 
   <!-- Videos Portfolio Page -->
   <url>
-    <loc>https://fieldfocus.agency/videos/</loc>
+    <loc>https://field-focus.agency/videos/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -57,28 +57,28 @@
 
   <!-- Main Page Sections (deep links for better indexing) -->
   <url>
-    <loc>https://fieldfocus.agency/#services</loc>
+    <loc>https://field-focus.agency/#services</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://fieldfocus.agency/#work</loc>
+    <loc>https://field-focus.agency/#work</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://fieldfocus.agency/#team</loc>
+    <loc>https://field-focus.agency/#team</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://fieldfocus.agency/#contact</loc>
+    <loc>https://field-focus.agency/#contact</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
