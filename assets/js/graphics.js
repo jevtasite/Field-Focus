@@ -215,6 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     visibleCards.forEach((card) => {
       if (!card.classList.contains("entering")) return;
       setTimeout(() => {
+        card.classList.add("card-visible");
         card.style.transition =
           "opacity 420ms ease, transform 420ms cubic-bezier(.2,.9,.2,1)";
         card.style.opacity = "1";
@@ -258,10 +259,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial visibility setup
   cards.forEach((c) => {
     if (c.dataset.category !== "filter1") {
-      c.classList.add("hidden-flip"); // hide everything except matchdays
+      c.classList.add("hidden-flip");
     } else {
-      c.classList.remove("hidden-flip"); // show matchdays
+      c.classList.remove("hidden-flip");
     }
+  });
+
+  // Scroll-in reveal for cards
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("card-visible");
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+
+  cards.forEach((c, i) => {
+    c.style.transitionDelay = `${(i % 3) * 60}ms`;
+    cardObserver.observe(c);
   });
 
   // Lightbox
