@@ -436,12 +436,9 @@ footer {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  overflow: hidden;
+  gap: 1rem;
   margin: 2rem auto 2.5rem auto;
-  max-width: 480px;
-  background: rgba(255, 255, 255, 0.03);
+  max-width: 520px;
 }
 
 .about-stat {
@@ -450,47 +447,59 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.15rem;
-  padding: 2rem 0.75rem;
-  transition: background 0.3s ease;
+  gap: 0;
+  padding: 1.6rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.about-stat::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .about-stat:hover {
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .about-stat-icon {
-  font-size: 1.3rem;
-  color: #fff;
-  margin-bottom: 0.6rem;
-  transition: transform 0.3s ease;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
 }
 
 .about-stat:hover .about-stat-icon {
-  transform: scale(1.2);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .stat-number {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 800;
   color: #fff;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
 }
 
 .stat-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
-  margin-top: 0.3rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 0.5rem;
 }
 
 .about-stat-divider {
-  width: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  flex-shrink: 0;
+  display: none;
 }
 
 /* Quote */
@@ -566,14 +575,15 @@ footer {
 @media (max-width: 576px) {
   .about-stats {
     max-width: 100%;
+    gap: 0.6rem;
   }
 
   .about-stat {
-    padding: 1.25rem 0.5rem;
+    padding: 1.1rem 0.4rem;
   }
 
   .stat-number {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
   }
 }
 
