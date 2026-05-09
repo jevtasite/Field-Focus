@@ -1,15 +1,41 @@
 // ======================= Loader =======================
 (() => {
+  function revealHero() {
+    const content = document.querySelector(".videos-hero .hero-content");
+    const bottom = document.querySelector(".videos-hero .hero-bottom");
+    if (content) {
+      content.style.transition = "opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)";
+      content.style.transform = "translateY(20px)";
+      requestAnimationFrame(() => {
+        content.style.opacity = "1";
+        content.style.transform = "translateY(0)";
+      });
+    }
+    if (bottom) {
+      bottom.style.transition = "opacity 0.7s ease 0.3s";
+      bottom.style.opacity = "1";
+    }
+    // Trigger underline animations after content fades in
+    setTimeout(() => {
+      document.querySelector(".hero-match")?.classList.add("underline-ready");
+      document.querySelector(".hero-moment")?.classList.add("underline-ready");
+    }, 700);
+  }
+
   const loader = document.getElementById("loader");
-  const hide = () => loader && loader.parentNode?.removeChild(loader);
+  const hide = (loader) => loader.parentNode?.removeChild(loader);
+
   window.addEventListener("load", () => {
     if (loader) {
       loader.style.transition = "opacity 1s ease";
       loader.style.opacity = "0";
-      setTimeout(hide, 1000);
+      setTimeout(() => { hide(loader); revealHero(); }, 1000);
+    } else {
+      revealHero();
     }
   });
-  setTimeout(() => loader && hide(), 5000); // fallback
+
+  setTimeout(() => { if (loader) { hide(loader); revealHero(); } }, 5000);
 })();
 
 // ======================= Navbar =======================
@@ -189,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (section.id === "videos-gallery") {
           children = section.querySelectorAll(".work-card-flip, .btn-gallery");
         } else if (section.id === "stats") {
-          children = section.querySelectorAll(".stat-card");
+          children = section.querySelectorAll(".stat-item");
         } else if (section.id === "cta") {
           children = section.querySelectorAll("h2, a");
         } else if (section.id === "contact") {
@@ -220,16 +246,17 @@ function animateStats() {
   if (sectionPos < screenPos) {
     statsNumbers.forEach((num) => {
       const target = +num.getAttribute("data-target");
+      const suffix = num.getAttribute("data-suffix") || "";
       let count = 0;
-      const increment = target / 300; // animation speed
+      const increment = target / 300;
 
       const updateNum = () => {
         count += increment;
         if (count < target) {
-          num.innerText = Math.ceil(count);
+          num.innerText = Math.ceil(count).toLocaleString();
           requestAnimationFrame(updateNum);
         } else {
-          num.innerText = target;
+          num.innerText = target.toLocaleString() + suffix;
         }
       };
       updateNum();
@@ -242,7 +269,7 @@ window.addEventListener("scroll", animateStats);
 window.addEventListener("load", animateStats);
 
 
-// ======================= CTA Get In Touch Button =======================
+// ======================= CTA Work With Us Button =======================
 (() => {
   const ctaBtn = document.querySelector("#cta a");
   const contactSection = document.querySelector("#contact");
@@ -266,55 +293,41 @@ window.addEventListener("load", animateStats);
   ctaBtn.addEventListener("click", (e) => {
     e.preventDefault();
     if (!contactSection.classList.contains("show")) {
-      // Show contact section
       contactSection.classList.add("show");
       animateElements(contactChildren);
       contactSection.scrollIntoView({ behavior: "smooth" });
+      ctaBtn.textContent = "Don't Work With Us";
     } else {
-      // Hide contact section
       hideElements(contactChildren);
       contactSection.classList.remove("show");
-      contactSection.scrollIntoView({ behavior: "smooth" });
+      ctaBtn.textContent = "Work With Us";
     }
   });
 })();
 
-// ======================= Show More Videos Smooth =======================
+
+// ======================= Card scroll reveal (initial cards) =======================
 (() => {
-  const showMoreBtn = document.getElementById("showMoreVideos");
-  const extraVideos = document.querySelectorAll(".extra-video");
-
-  if (!showMoreBtn || !extraVideos.length) return;
-
-  // Set initial state
-  extraVideos.forEach((video) => {
-    video.style.maxHeight = "0";
-    video.style.opacity = "0";
-    video.style.overflow = "hidden";
-    video.style.transition =
-      "max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease";
-    video.style.transform = "translateY(20px)";
-  });
-
-  showMoreBtn.addEventListener("click", () => {
-    const isShowing = showMoreBtn.dataset.showing === "true";
-
-    extraVideos.forEach((video) => {
-      if (!isShowing) {
-        // Show video
-        video.style.maxHeight = video.scrollHeight + "px";
-        video.style.opacity = "1";
-        video.style.transform = "translateY(0)";
-      } else {
-        // Hide video
-        video.style.maxHeight = "0";
-        video.style.opacity = "0";
-        video.style.transform = "translateY(20px)";
+  const cards = document.querySelectorAll(".work-card-flip:not(.extra-video)");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("card-visible");
+        observer.unobserve(entry.target);
       }
     });
+  }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
 
-    showMoreBtn.textContent = isShowing ? "Show More" : "Show Less";
-    showMoreBtn.dataset.showing = isShowing ? "false" : "true";
+  cards.forEach((c, i) => {
+    c.style.transitionDelay = `${(i % 3) * 80}ms`;
+    observer.observe(c);
+  });
+
+  // Re-measure extra video heights after images load (YouTube thumbnails)
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".extra-video img").forEach((img) => {
+      if (!img.complete) img.addEventListener("load", () => {});
+    });
   });
 })();
 

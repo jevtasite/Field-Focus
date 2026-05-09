@@ -142,12 +142,12 @@
         animation: spin 1s linear infinite;
       }
       @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .hero-content,
+      .hero-bottom {
+        opacity: 0;
       }
     </style>
 
@@ -439,9 +439,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <header
-      class="videos-hero d-flex align-items-center justify-content-center"
-    >
+    <header class="videos-hero">
       <!-- Background video -->
       <video autoplay muted loop playsinline class="hero-video">
         <source src="/assets/vid/hero-bg.mp4" type="video/mp4" />
@@ -452,240 +450,94 @@
 
       <!-- Hero content -->
       <div class="hero-content">
-        <div class="hero-accent-line">
-          <span class="line"></span>
-          <h1>VIDEOS</h1>
-          <span class="line"></span>
-        </div>
+        <h1 class="hero-heading">Every <em class="hero-match">match</em>,<br/>every <em class="hero-moment">moment</em>.</h1>
+        <p class="hero-sub">Cinematic sports content for clubs &amp; athletes.</p>
+        <a href="#videos-gallery" class="btn btn-white hero-btn">Watch Our Work</a>
+      </div>
 
-        <!-- Additional text -->
-        <p class="hero-subtitle">Explore our latest projects</p>
-
-        <!-- Social icons -->
-        <div class="hero-social">
-          <a
-            href="https://www.youtube.com/@fieldfocusocial"
-            target="_blank"
-            class="social-icon"
-          >
-            <i class="fab fa-youtube"></i>
-          </a>
-          <a
-            href="https://www.behance.net/fieldfocus"
-            target="_blank"
-            class="social-icon"
-          >
-            <i class="fab fa-behance"></i>
-          </a>
-        </div>
-
-        <!-- View more button -->
-        <a href="#videos-gallery" class="btn btn-white hero-btn mt-4"
-          >View More</a
-        >
+      <!-- Bottom bar -->
+      <div class="hero-bottom">
+        <a href="https://www.youtube.com/@fieldfocusocial" target="_blank" class="hero-yt-link">
+          <i class="fab fa-youtube"></i>
+          <span>Watch on YouTube</span>
+        </a>
+        <a href="#videos-gallery" class="hero-scroll-hint">
+          <span>Scroll</span>
+          <i class="bi bi-arrow-down"></i>
+        </a>
       </div>
     </header>
 
     <!-- Video Gallery Section -->
     <section id="videos-gallery" class="py-5">
       <div class="container">
+        <p class="section-label">Our Work</p>
         <h2 class="fw-bold mb-4 text-center">Video Gallery</h2>
 
         <div class="work-grid-flip" role="list" aria-live="polite">
-          <!-- First row (visible) -->
-          <a
-            class="work-card-flip"
-            href="https://www.youtube.com/watch?v=yYQP9oylHkg"
-            target="_blank"
-            rel="noopener noreferrer"
-            role="listitem"
-            tabindex="0"
-          >
-            <img
-              src="https://img.youtube.com/vi/yYQP9oylHkg/hqdefault.jpg"
-              alt="Professional sports highlight reel video showcasing Field Focus production quality"
-              fetchpriority="high"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=yYQP9oylHkg" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/yYQP9oylHkg/hqdefault.jpg" alt="Professional sports highlight reel video showcasing Field Focus production quality" fetchpriority="high" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-
-          <a
-            class="work-card-flip"
-            href="https://www.youtube.com/watch?v=yy_P5uf_f5c"
-            target="_blank"
-            rel="noopener noreferrer"
-            role="listitem"
-            tabindex="0"
-          >
-            <img
-              src="https://img.youtube.com/vi/yy_P5uf_f5c/hqdefault.jpg"
-              alt="Dynamic matchday coverage video with cinematic sports highlights"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=yy_P5uf_f5c" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/yy_P5uf_f5c/hqdefault.jpg" alt="Dynamic matchday coverage video with cinematic sports highlights" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-
-          <a
-            class="work-card-flip"
-            href="https://www.youtube.com/watch?v=5Wr4OYM392o"
-            target="_blank"
-            rel="noopener noreferrer"
-            role="listitem"
-            tabindex="0"
-          >
-            <img
-              src="https://img.youtube.com/vi/5Wr4OYM392o/hqdefault.jpg"
-              alt="Football match highlight video edited by Field Focus sports agency"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=5Wr4OYM392o" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/5Wr4OYM392o/hqdefault.jpg" alt="Football match highlight video edited by Field Focus sports agency" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-
-          <a
-            class="work-card-flip"
-            href="https://www.youtube.com/watch?v=mffta-OsfqM"
-            target="_blank"
-            rel="noopener noreferrer"
-            role="listitem"
-            tabindex="0"
-          >
-            <img
-              src="https://img.youtube.com/vi/mffta-OsfqM/hqdefault.jpg"
-              alt="Athlete showcase video production with professional sports videography"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=mffta-OsfqM" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/mffta-OsfqM/hqdefault.jpg" alt="Athlete showcase video production with professional sports videography" loading="lazy" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-
-          <!-- Hidden videos (row 2, extra-video) -->
-          <a
-            class="work-card-flip extra-video"
-            href="https://www.youtube.com/watch?v=QEXDld6GrV0"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://img.youtube.com/vi/QEXDld6GrV0/hqdefault.jpg"
-              alt="Sports team promotional video with cinematic editing and effects"
-              loading="lazy"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=QEXDld6GrV0" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/QEXDld6GrV0/hqdefault.jpg" alt="Sports team promotional video with cinematic editing and effects" loading="lazy" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-
-          <a
-            class="work-card-flip extra-video"
-            href="https://www.youtube.com/watch?v=Lh--y-tkqpw"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://img.youtube.com/vi/Lh--y-tkqpw/hqdefault.jpg"
-              alt="Football club matchday video content with live action highlights"
-              loading="lazy"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=Lh--y-tkqpw" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/Lh--y-tkqpw/hqdefault.jpg" alt="Football club matchday video content with live action highlights" loading="lazy" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-
-          <a
-            class="work-card-flip extra-video"
-            href="https://www.youtube.com/watch?v=8wvtgccuxWY"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://img.youtube.com/vi/8wvtgccuxWY/hqdefault.jpg"
-              alt="Professional sports video editing with dynamic camera work and transitions"
-              loading="lazy"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=8wvtgccuxWY" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/8wvtgccuxWY/hqdefault.jpg" alt="Professional sports video editing with dynamic camera work and transitions" loading="lazy" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-
-          <a
-            class="work-card-flip extra-video"
-            href="https://www.youtube.com/watch?v=V8bsXODfry4"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://img.youtube.com/vi/V8bsXODfry4/hqdefault.jpg"
-              alt="Scouting video production showcasing athlete skills and highlights"
-              loading="lazy"
-              decoding="async"
-              width="480"
-              height="360"
-            />
-            <div class="overlay-flip">
-              <span class="view-btn-flip"><i class="fas fa-play"></i></span>
-            </div>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=V8bsXODfry4" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/V8bsXODfry4/hqdefault.jpg" alt="Scouting video production showcasing athlete skills and highlights" loading="lazy" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
           </a>
-        </div>
-        <div class="text-center mt-4">
-          <button class="btn-white btn-gallery" id="showMoreVideos">
-            Show More
-          </button>
+          <a class="work-card-flip" href="https://www.youtube.com/watch?v=5IahPrs1Xkk" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/5IahPrs1Xkk/hqdefault.jpg" alt="Sports video production by Field Focus" loading="lazy" decoding="async" width="480" height="360"/>
+            <div class="overlay-flip"><span class="view-btn-flip"><i class="fas fa-play"></i></span></div>
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Stats Section -->
-    <section id="stats" class="py-5 position-relative text-center">
-      <div class="container position-relative">
-        <h2 class="fw-bold mb-5">The Numbers</h2>
-
-        <!-- Cards Container -->
-        <div class="stats-cards d-flex flex-wrap justify-content-center gap-4">
-          <!-- Stat Card 1 -->
-          <div class="stat-card">
-            <i class="fas fa-calendar-alt fa-2x mb-2"></i>
-            <h3 class="stat-number" data-target="1">0</h3>
-            <p>Year on YouTube</p>
+    <section id="stats">
+      <div class="stats-strip">
+        <div class="stat-item">
+          <div class="stat-item-numwrap">
+            <i class="fas fa-running stat-item-icon"></i>
+            <span class="stat-item-number stat-number" data-target="47">0</span>
           </div>
-
-          <!-- Stat Card 2 -->
-          <div class="stat-card">
-            <i class="fas fa-video fa-2x mb-2"></i>
-            <h3 class="stat-number" data-target="62">0</h3>
-            <p>Videos</p>
+          <span class="stat-item-label">Players Highlighted</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item-numwrap">
+            <i class="fas fa-handshake stat-item-icon"></i>
+            <span class="stat-item-number stat-number" data-target="80" data-suffix="+">0</span>
           </div>
-
-          <!-- Stat Card 3 -->
-          <div class="stat-card">
-            <i class="fas fa-eye fa-2x mb-2"></i>
-            <h3 class="stat-number" data-target="20500">0</h3>
-            <p>Views</p>
+          <span class="stat-item-label">Agencies</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item-numwrap">
+            <i class="fas fa-eye stat-item-icon"></i>
+            <span class="stat-item-number stat-number" data-target="78721">0</span>
           </div>
+          <span class="stat-item-label">Views</span>
         </div>
       </div>
     </section>
@@ -693,10 +545,8 @@
     <!-- CTA Section -->
     <section id="cta" class="py-4 text-center">
       <div class="container">
-        <h2 class="fw-bold">
-          Your vision deserves the spotlight-let's make it unforgettable.
-        </h2>
-        <a href="#contact" class="btn btn-white btn-lg">Get in Touch</a>
+        <h2>"Your story deserves to be seen — let's capture it."</h2>
+        <a href="#contact" class="btn btn-white">Work With Us</a>
       </div>
     </section>
 
@@ -707,15 +557,23 @@
         <p class="lead mb-4">
           Reach out via email or follow us on social media:
         </p>
-        <p class="mb-3">
-          <a
-            id="email-link"
-            href="mailto:infofieldfocus@gmail.com"
-            class="text-white text-decoration-none"
-          >
-            infofieldfocus@gmail.com
+
+        <!-- Contact Cards -->
+        <div class="contact-cards">
+          <a href="tel:+381656041606" class="contact-card text-white">
+            <span class="contact-card-label"><i class="bi bi-telephone me-1"></i>Dusan</span>
+            <span class="contact-card-value">+381 656 041 606</span>
           </a>
-        </p>
+          <a id="email-link" href="mailto:infofieldfocus@gmail.com" class="contact-card text-white">
+            <span class="contact-card-label"><i class="bi bi-envelope me-1"></i>Email</span>
+            <span class="contact-card-value">infofieldfocus@gmail.com</span>
+          </a>
+          <a href="tel:+381644492995" class="contact-card text-white">
+            <span class="contact-card-label"><i class="bi bi-telephone me-1"></i>Mihailo</span>
+            <span class="contact-card-value">+381 644 492 995</span>
+          </a>
+        </div>
+
         <div class="d-flex justify-content-center gap-4">
           <a
             href="https://www.instagram.com/fieldfocusocial/"

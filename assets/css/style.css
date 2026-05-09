@@ -1274,6 +1274,56 @@ footer {
   transform: scale(1.1);
 }
 
+.contact-phone {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.contact-phone:hover {
+  opacity: 1;
+  transform: none !important;
+}
+
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  text-decoration: none !important;
+  transition: border-color 0.25s ease;
+}
+
+.contact-card:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: none !important;
+  color: #fff !important;
+}
+
+.contact-card-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.contact-card-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+}
+
 #contact .social-icon i {
   transition:
     text-shadow 0.3s ease,
@@ -1298,6 +1348,7 @@ footer {
 #contact h2,
 #contact p,
 #contact p a,
+#contact .contact-card,
 #contact .d-flex a {
   opacity: 0;
   transform: translateY(40px);
@@ -1319,6 +1370,7 @@ footer {
 #contact h2.visible,
 #contact p.visible,
 #contact p a.visible,
+#contact .contact-card.visible,
 #contact .d-flex a.visible {
   opacity: 1;
   transform: translateY(0);
