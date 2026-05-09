@@ -70,7 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function hideLoader(loader, delay = 1000) {
   loader.style.transition = `opacity ${delay / 1000}s ease`;
   loader.style.opacity = "0";
-  setTimeout(() => loader.parentNode?.removeChild(loader), delay);
+  setTimeout(() => {
+    loader.parentNode?.removeChild(loader);
+    document.querySelector(".hero-focus")?.classList.add("underline-ready");
+  }, delay);
 }
 
 window.addEventListener("load", () => {

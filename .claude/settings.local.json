@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(Get-ChildItem -Path . -Recurse -Force)",
+      "Bash(Select-Object -First 100 FullName, PSIsContainer)",
+      "Bash(Format-List)"
     ],
     "deny": [],
     "ask": []
