@@ -1219,6 +1219,7 @@ footer {
 
 #team.visible .team-card:hover {
   transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out;
+  transition-delay: 0s;
 }
 
 #team.visible .col-sm-8:nth-child(1) .team-card {
