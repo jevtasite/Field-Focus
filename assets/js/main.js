@@ -201,11 +201,36 @@ if (seeMoreBtn) {
   });
 }
 
+// ======================= Stat Counters =======================
+function animateCounter(el) {
+  const target = +el.dataset.target;
+  const suffix = el.dataset.suffix || "";
+  const duration = 1400;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(ease * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+let countersTriggered = false;
+function triggerCounters() {
+  if (countersTriggered) return;
+  const statsEl = document.querySelector(".about-stats");
+  if (!statsEl) return;
+  if (statsEl.getBoundingClientRect().top < window.innerHeight * 0.9) {
+    countersTriggered = true;
+    document.querySelectorAll(".stat-number[data-target]").forEach(animateCounter);
+  }
+}
+
 // ======================= Scroll-triggered Animations =======================
 const scrollElements = {
-  about: document.querySelectorAll(
-    "#about h2, #about .lead, #about blockquote"
-  ),
+  about: document.querySelectorAll("#about .animate"),
   services: document.querySelectorAll("#services h2, #services .card"),
   work: document.getElementById("work"),
   highlights: document.getElementById("highlights"),
@@ -228,6 +253,7 @@ function handleScroll() {
 
   // About
   revealElements(scrollElements.about);
+  triggerCounters();
 
   // Services
   revealElements(scrollElements.services);
