@@ -1,14 +1,30 @@
 // ======================= Loader =======================
 (() => {
+  function revealHero() {
+    const hero = document.querySelector(".graphics-hero");
+    if (!hero) return;
+    [
+      hero.querySelector(".hero-accent-line"),
+      hero.querySelector(".hero-swiper"),
+      hero.querySelector(".featured-graphics-bg"),
+      hero.querySelector(".featured-graphics-marquee"),
+    ].forEach((el) => el && el.classList.add("visible"));
+    hero.classList.add("animated");
+  }
+
   function hideLoader(loader, delay = 1000) {
     loader.style.transition = `opacity ${delay / 1000}s ease`;
     loader.style.opacity = "0";
-    setTimeout(() => loader.parentNode?.removeChild(loader), delay);
+    setTimeout(() => {
+      loader.parentNode?.removeChild(loader);
+      revealHero();
+    }, delay);
   }
 
   window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
     if (loader) hideLoader(loader, 1000);
+    else revealHero(); // no loader present, reveal immediately
   });
 
   // Fallback: hide loader after 5s max
@@ -401,7 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ======================= Scroll-triggered Animations =======================
 const animatedSections = document.querySelectorAll(
-  ".graphics-hero, #testimonials, #cta, #contact"
+  "#testimonials, #cta, #contact"
 );
 
 function animateElements(elements) {
@@ -418,21 +434,14 @@ function revealOnScroll() {
       section.getBoundingClientRect().top < triggerBottom &&
       !section.classList.contains("animated")
     ) {
-      let children = [];
-
-      if (section.classList.contains("graphics-hero")) {
-        children = section.querySelectorAll(
-          "h1, .hero-accent-line, .hero-swiper .swiper-slide img, .featured-graphics-marquee, .featured-graphics-bg"
-        );
-      } else if (section.id === "testimonials") {
-        children = section.querySelectorAll(".testimonial-card, .swiper-slide");
+      if (section.id === "testimonials") {
+        animateElements(section.querySelectorAll(".testimonial-card, .swiper-slide"));
       } else if (section.id === "cta") {
-        children = section.querySelectorAll("h2, a");
+        animateElements(section.querySelectorAll("h2, a"));
       } else if (section.id === "contact") {
-        children = section.querySelectorAll("h2, p, a, .d-flex a");
+        animateElements(section.querySelectorAll("h2, p, a, .d-flex a"));
       }
 
-      animateElements(children);
       section.classList.add("animated");
     }
   });
