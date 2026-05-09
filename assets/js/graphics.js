@@ -489,14 +489,14 @@ getInTouchBtn?.addEventListener("click", function (e) {
   );
 
   if (!contactSection.classList.contains("show")) {
-    // Show section
     contactSection.classList.add("show");
     animateElements(contactChildren);
     contactSection.scrollIntoView({ behavior: "smooth" });
+    getInTouchBtn.textContent = "Don't Work With Us";
   } else {
-    // Hide section
     hideElements(contactChildren);
     contactSection.classList.remove("show");
+    getInTouchBtn.textContent = "Work With Us";
   }
 });
 

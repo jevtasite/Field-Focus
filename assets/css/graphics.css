@@ -771,16 +771,22 @@ body {
 
 /* ======================= CTA ======================= */
 #cta {
-  padding: 4rem 0;
+  padding: 3rem 0;
   text-align: center;
   background: #121212;
 }
 #cta h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: rgba(255, 255, 255, 0.85);
 }
-#cta p {
-  margin-bottom: 1.5rem;
+#cta .btn {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.55em 1.6em;
+  border-radius: 100px;
 }
 
 /* Initially hide contact section */
