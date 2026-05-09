@@ -512,15 +512,48 @@ footer {
 
 #about .animate {
   opacity: 0;
-  transform: translateY(25px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+/* Label — drops in from above */
+#about .about-label.animate {
+  transform: translateY(-16px);
+  transition-delay: 0s;
+}
+
+/* Heading — scales up */
+#about h2.animate {
+  transform: scale(0.94) translateY(10px);
+  transition-delay: 0.1s;
+}
+
+/* Body paragraph — slides from left */
+#about .lead.animate {
+  transform: translateX(-30px);
+  transition-delay: 0.2s;
+}
+
+/* Stats bar — slides from right */
+#about .about-stats.animate {
+  transform: translateX(30px);
+  transition-delay: 0.3s;
+}
+
+/* Quote — fades up */
+#about .about-quote.animate {
+  transform: translateY(20px);
+  transition-delay: 0.4s;
+}
+
+/* Button — fades up last */
+#about #readMoreBtn.animate {
+  transform: translateY(20px);
+  transition-delay: 0.5s;
 }
 
 #about .animate.reveal {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 #aboutExtra p {
