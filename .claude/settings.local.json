@@ -8,7 +8,8 @@
       "Bash(python3 -c ' *)",
       "PowerShell(Remove-Item 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon.svg' -Confirm:$false)",
       "PowerShell(Copy-Item 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon-96x96.png' 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon-96x96-v2.png')",
-      "PowerShell(Copy-Item 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon.ico' 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon-v2.ico')"
+      "PowerShell(Copy-Item 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon.ico' 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon-v2.ico')",
+      "WebFetch(domain:www.youtube.com)"
     ],
     "deny": [],
     "ask": []

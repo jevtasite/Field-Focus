@@ -11,7 +11,7 @@ Allow: /graphics/
 Allow: /videos/
 
 # Sitemap location
-Sitemap: https://fieldfocus.agency/sitemap.xml
+Sitemap: https://field-focus.agency/sitemap.xml
 
 # Crawl delay to be respectful to servers
 Crawl-delay: 1
