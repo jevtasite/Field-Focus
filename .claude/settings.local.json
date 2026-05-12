@@ -5,7 +5,10 @@
       "Bash(Get-ChildItem -Path . -Recurse -Force)",
       "Bash(Select-Object -First 100 FullName, PSIsContainer)",
       "Bash(Format-List)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "PowerShell(Remove-Item 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon.svg' -Confirm:$false)",
+      "PowerShell(Copy-Item 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon-96x96.png' 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon-96x96-v2.png')",
+      "PowerShell(Copy-Item 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon.ico' 'D:\\\\WEBDEVELOPMENT\\\\Field-Focus\\\\assets\\\\img\\\\favicon-v2.ico')"
     ],
     "deny": [],
     "ask": []
